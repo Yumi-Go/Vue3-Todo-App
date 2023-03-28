@@ -6,7 +6,7 @@ defineProps({
 </script>
 
 <template>
-  <h1>this is Bookmarked component</h1>
+  <h2>this is Bookmarked component</h2>
 
 </template>
 
