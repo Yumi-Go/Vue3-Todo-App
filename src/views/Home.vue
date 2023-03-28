@@ -2,6 +2,8 @@
 import { ref } from "vue";
 import AllTasks from '../components/AllTasks.vue'
 import Bookmarked from '../components/Bookmarked.vue'
+import SvgIcon from '@jamescoyle/vue-icon'
+import { mdiBookmarkOutline } from '@mdi/js'
 
 const task = ref('first');
 function addTask(newTask) {
@@ -19,15 +21,20 @@ function addTask(newTask) {
         </div>
         <div class="bg-pink-400">
             <v-container fluid>
-    <p>{{ task }}</p>
-    <v-row>
-        <v-col cols="12" sm="4" md="4">
-            <v-checkbox v-model="task" label="task1" color="black" value="task1"></v-checkbox>
-            <v-checkbox v-model="task" label="task2" color="black" value="task2"></v-checkbox>
-        </v-col>
-    </v-row>
+                <p>{{ task }}</p>
+                <v-row>
+                    <v-checkbox v-model="task" label="task1" color="black" value="task1" />
+                    <v-icon :icon="mdiBookmarkOutline" />
+                </v-row>
+                <v-row>
+                    <v-checkbox v-model="task" label="task2" color="black" value="task2" />
+                    <v-icon :icon="mdiBookmarkOutline" />
+                </v-row>
+            </v-container>
 
-  </v-container>
+
+  <!-- <svg-icon type="mdi" :path="path"></svg-icon> -->
+  
 
 
             <AllTasks />

@@ -9,9 +9,11 @@ import './style.css'
 import 'vuetify/styles'
 import { createVuetify } from 'vuetify'
 import { aliases, mdi } from 'vuetify/iconsets/mdi-svg'
-// import { mdiAccount } from '@mdi/js'
 import * as components from 'vuetify/components'
 import * as directives from 'vuetify/directives'
+
+// import SvgIcon from '@jamescoyle/vue-icon'
+// import { mdiAccount } from '@mdi/js'
 
 const vuetify = createVuetify({
     components,
