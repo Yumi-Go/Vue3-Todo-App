@@ -19,7 +19,7 @@ const path = ref('');
         <div class="flex flex-row mb-6 bg-sky-400">
             <div class="todo w-[109px] h-[39px] bg-red-300" >TO-DO</div>
             <div class="button_on">All tasks</div>
-            <div class="button_off">Bookmarked</div>   
+            <div class="button_off">Bookmarked</div>
         </div>
         <div class="bg-pink-400">
             <v-container fluid>
@@ -34,7 +34,7 @@ const path = ref('');
                         <template #icon>
                             <svg-icon type="mdi" :path="mdiPlus"></svg-icon>
                         </template>
-                    
+
                     </v-icon>
                 </v-row>
                 <v-row>
@@ -66,7 +66,7 @@ const path = ref('');
 
 
   <!-- <svg-icon type="mdi" :path="path"></svg-icon> -->
-  
+
 
 
             <AllTasks />
@@ -103,7 +103,7 @@ color: #000000;
 
 
 
-    
+
 }
 .button_on {
     box-sizing: border-box;
@@ -149,6 +149,6 @@ color: #000000;
     align-self: stretch;
     flex-grow: 1;
 
-    
+
 }
 </style>
