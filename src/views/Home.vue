@@ -3,17 +3,19 @@ import { ref } from "vue";
 import AllTasks from '../components/AllTasks.vue'
 import Bookmarked from '../components/Bookmarked.vue'
 import SvgIcon from '@jamescoyle/vue-icon'
-import { mdiBookmarkOutline } from '@mdi/js'
+import { mdiBookmarkOutline, mdiPlus } from '@mdi/js'
 
 const task = ref('first');
 function addTask(newTask) {
     task.value = newTask;
 }
+
+const path = ref('');
 </script>
 
 <template>
-<div class="w-[1280px] h-[832px] absolute left-0 top-0  bg-yellow-300">
-    <div class="w-[600px] h-[648px] absolute left-[340px] top-[29px] bg-[#79F193]">
+<div class="w-[1280px] h-[832px] left-0 top-0  bg-yellow-300">
+    <div class="w-[600px] h-[648px] left-[340px] top-[29px] bg-[#79F193]">
         <div class="flex flex-row mb-6 bg-sky-400">
             <div class="todo w-[109px] h-[39px] bg-red-300" >TO-DO</div>
             <div class="button_on">All tasks</div>
@@ -28,8 +30,38 @@ function addTask(newTask) {
                 </v-row>
                 <v-row>
                     <v-checkbox v-model="task" label="task2" color="black" value="task2" />
-                    <v-icon :icon="mdiBookmarkOutline" />
+                    <v-icon>
+                        <template #icon>
+                            <svg-icon type="mdi" :path="mdiPlus"></svg-icon>
+                        </template>
+                    
+                    </v-icon>
                 </v-row>
+                <v-row>
+                    <v-text-field
+                    label="Add a new Task"
+                    append-inner-icon=path
+                    variant="solo"
+                    class="m-5">
+
+
+                    <template #append-inner>
+                        <svg-icon type="mdi" :path="mdiPlus"></svg-icon>
+
+                     </template>
+
+
+
+
+
+
+
+                    </v-text-field>
+
+
+                </v-row>
+                <svg-icon type="mdi" :path="path"></svg-icon>
+
             </v-container>
 
 
