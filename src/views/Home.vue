@@ -5,9 +5,28 @@ import Bookmarked from '../components/Bookmarked.vue'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiBookmarkOutline, mdiPlus } from '@mdi/js'
 
-const task = ref('first');
-function addTask(newTask) {
-    task.value = newTask;
+const newTask = ref('');
+const tasks = [];
+const isTaskExist = false;
+function addTask() {
+    this.isTaskExist = false;
+    const value = newTask && newTask.trim();
+    if (!value) {
+        return;
+    }
+    const isTaskExist = this.tasks.find((task) => task.title === value);
+    if (!isTaskExist) {
+        this.tasks.push({
+            title: this.newTask,
+            done: false,
+        });
+        this.newTask = "";
+    }
+    if (isTaskExist) {
+        this.isTaskExist = true;
+    }
+
+
 }
 
 const path = ref('');
@@ -25,38 +44,88 @@ const path = ref('');
             <v-container fluid>
                 <p>{{ task }}</p>
                 <v-row>
-                    <v-checkbox v-model="task" label="task1" color="black" value="task1" />
+                    <v-checkbox v-model="newTask" label="task1" color="black" value="task1" />
                     <v-icon :icon="mdiBookmarkOutline" />
                 </v-row>
                 <v-row>
-                    <v-checkbox v-model="task" label="task2" color="black" value="task2" />
-                    <v-icon>
-                        <template #icon>
-                            <svg-icon type="mdi" :path="mdiPlus"></svg-icon>
-                        </template>
-                    
-                    </v-icon>
+                    <v-checkbox v-model="newTask" label="task2" color="black" value="task2" />
+                    <v-icon :icon="mdiBookmarkOutline" />
+
                 </v-row>
+
                 <v-row>
-                    <v-text-field
-                    label="Add a new Task"
-                    append-inner-icon=path
-                    variant="solo"
-                    class="m-5">
+                    <!-- <v-list lines="three" select-strategy="classic"> -->
+
+      <!-- <v-list-item value="">
+        <template v-slot:prepend="{ isActive }">
+
+          <v-list-item-action start>
+            <v-checkbox-btn :model-value="isActive"></v-checkbox-btn>
+          </v-list-item-action>
+        </template>
+
+        <v-list-item-title>Notifications</v-list-item-title>
+
+        <v-list-item-subtitle>
+          Notify me about updates to apps or games that I downloaded
+        </v-list-item-subtitle>
+      </v-list-item>
+
+      <v-list-item value="sound">
+        <template v-slot:prepend="{ isActive }">
+          <v-list-item-action start>
+            <v-checkbox-btn :model-value="isActive"></v-checkbox-btn>
+          </v-list-item-action>
+        </template>
+
+        <v-list-item-title>Sound</v-list-item-title>
+
+        <v-list-item-subtitle>
+          Auto-update apps at any time. Data charges may apply
+        </v-list-item-subtitle>
+      </v-list-item>
+
+      <v-list-item value="widgets">
+        <template v-slot:prepend="{ isActive }">
+          <v-list-item-action start>
+            <v-checkbox-btn :model-value="isActive"></v-checkbox-btn>
+          </v-list-item-action>
+        </template>
+
+        <v-list-item-title>Auto-add widgets</v-list-item-title>
+
+        <v-list-item-subtitle>
+          Automatically add home screen widgets when downloads complete
+        </v-list-item-subtitle>
+      </v-list-item>
+    </v-list> -->
 
 
-                    <template #append-inner>
-                        <svg-icon type="mdi" :path="mdiPlus"></svg-icon>
-
-                     </template>
 
 
 
 
+                    <!-- <v-list-item> -->
+                        <!-- <v-list-item-content>
+                          <v-list-item-title> -->
+                            <v-text-field
+                            label="Add a new Task"
+                            variant="solo"
+                            class="m-5">
+
+
+                                <template #append-inner>
+                                    <svg-icon type="mdi" :path="mdiPlus"></svg-icon>
+                                </template>
+                            </v-text-field>
+                        <!-- </v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item> -->
 
 
 
-                    </v-text-field>
+
+
 
 
                 </v-row>
