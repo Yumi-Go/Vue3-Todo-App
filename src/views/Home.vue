@@ -15,7 +15,6 @@ const addTask = () => {
     name: newTask.value,
     bookmarked: false,
     completed: false,
-    checked: false,
   });
   newTask.value = '';
 }
@@ -26,10 +25,10 @@ const capitalize = (name) => {
   return firstLetter + rest;
 }
 
-const checkedTasks = () => {
+const completedTasks = () => {
   const result = [];
   allTasks.value.map(obj => {
-    if (obj.checked == true) {
+    if (obj.completed == true) {
       result.push(obj.id);
     }
   });
@@ -82,12 +81,12 @@ const path = ref('');
           <p>for Check...</p>
         </v-row>
         <v-row>
-          <p>===> New Task input: {{ newTask }}</p>
+          <p>==> New Task input: {{ newTask }}</p>
         </v-row>
         <v-row>
           <p>==> All tasks list</p>
           <li v-for="(task, index) in allTasks">
-            Index: {{ index }} // ID: {{ task.id }} // Name: {{ task.name }} // Bookmarked: {{ task.bookmarked }} // Completed: {{ task.completed }} // Checked: {{ task.checked }}
+            Index: {{ index }} // ID: {{ task.id }} // Name: {{ task.name }} // Bookmarked: {{ task.bookmarked }} // Completed: {{ task.completed }}
           </li>
         </v-row>
 
@@ -96,17 +95,19 @@ const path = ref('');
         </v-row>
 
         <v-row>
-          ==> Checked tasks's ID list: {{ checkedTasks() }} 
+          ==> Completed tasks's ID list: {{ completedTasks() }} 
         </v-row>
 
         <v-row>
           <v-list class="w-full h-[500px] m-0">
             <span v-if="allTasks.length == 0">0 task.. Add a task!</span>
             <span v-else>Your Tasks</span>
-              <v-list-item v-for="(task, index) in allTasks">
+              <v-list-item v-for="(task) in allTasks">
                 <v-list-item-action>
-                  <v-checkbox v-model="task.checked">
-                    <template #label>{{ capitalize(task.name) }}</template>
+                  <v-checkbox v-model="task.completed">
+                    <template #label v-if="task.completed == true"><span class="line-through"> {{ capitalize(task.name) }}</span></template>
+                    <template #label v-else>{{ capitalize(task.name) }}</template>
+
                   </v-checkbox>
                   <v-icon v-if="task.bookmarked != true" :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)" />
                   <v-icon v-else :icon="mdiBookmark" @click="unBookmarkTask(task.id)" />
