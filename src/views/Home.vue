@@ -7,11 +7,11 @@ import { mdiBookmarkOutline, mdiPlus } from '@mdi/js'
 
 const newTask = ref('');
 let counter = 0;
-const tasks = ref([]);
+const allTasks = ref([]);
 
 const addTask = () => {
-  tasks.value.push({
-    id: counter++,
+  allTasks.value.push({
+    id: 't' + ++counter,
     name: newTask.value,
     bookmarked: false,
     completed: false,
@@ -25,6 +25,13 @@ const capitalize = (name) => {
   const rest = name.slice(1);
   return firstLetter + rest;
 }
+
+const bookmarkedTasks = ref([]);
+const bookmarkTask = (taskID) => {
+  bookmarkedTasks.value.push(taskID)
+}
+
+
 
 
 const removeTask = (index) => {
@@ -48,28 +55,34 @@ const path = ref('');
     </div>
     <div class="bg-pink-400">
       <v-container fluid>
-        <p>{{ newTask }}</p>
+
         <v-row>
-          <v-checkbox color="black" value="task1">
-            <template #label>{{ newTask }}</template>
-          </v-checkbox>
-          <v-icon :icon="mdiBookmarkOutline" />
+          <p>New Task input check: {{ newTask }}</p>
         </v-row>
         <v-row>
-          <li v-for="(task, index) in tasks">
-            New task: {{ newTask }} // Index: {{ index }} // ID: {{ task.id }} // Task Name: {{ task.name }}
+          <p>All tasks list</p>
+          <li v-for="(task, index) in allTasks">
+            Index: {{ index }} // ID: {{ task.id }} // Name: {{ task.name }} // Bookmarked: {{ task.bookmarked }} // Completed: {{ task.completed }} // Checked: {{ task.checked }}
+          </li>
+        </v-row>
+
+        <v-row>
+          <p>Bookmarked tasks's ID list</p>
+          <li v-for="(task) in bookmarkedTasks">
+            {{ task }}
           </li>
         </v-row>
 
         <v-row>
           <v-list class="w-full h-[500px] m-0">
-            <span v-if="tasks.length == 0">Add a task</span>
+            <span v-if="allTasks.length == 0">0 task.. Add a task!</span>
             <span v-else>Your Tasks</span>
-              <v-list-item v-for="(task, index) in tasks">
+              <v-list-item v-for="(task, index) in allTasks">
                 <v-list-item-action>
                   <v-checkbox v-model="task.checked">
                     <template #label>{{ capitalize(task.name) }}</template>
                   </v-checkbox>
+                  <v-icon :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)" />
                 </v-list-item-action>
               </v-list-item>
           </v-list>
