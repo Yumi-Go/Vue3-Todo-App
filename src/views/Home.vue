@@ -3,7 +3,7 @@ import { ref } from "vue";
 import AllTasks from '../components/AllTasks.vue'
 import Bookmarked from '../components/Bookmarked.vue'
 import SvgIcon from '@jamescoyle/vue-icon'
-import { mdiBookmarkOutline, mdiPlus } from '@mdi/js'
+import { mdiBookmarkOutline, mdiBookmark, mdiPlus } from '@mdi/js'
 
 const newTask = ref('');
 let counter = 0;
@@ -26,18 +26,27 @@ const capitalize = (name) => {
   return firstLetter + rest;
 }
 
+const chekedTasks = ref([]);
+
 const bookmarkedTasks = ref([]);
+
 const bookmarkTask = (taskID) => {
   allTasks.value.map(obj => {
-    if (obj.id === taskID) {
+    if (obj.id === taskID && !bookmarkedTasks.value.includes(taskID)) {
       obj.bookmarked = true;
-      if (!bookmarkedTasks.value.includes(taskID)) {
-        bookmarkedTasks.value.push(taskID);
-      }
+      bookmarkedTasks.value.push(taskID);
     }
   });
 }
 
+const unBookmarkTask = (taskID) => {
+  allTasks.value.map(obj => {
+    if (obj.id === taskID && bookmarkedTasks.value.includes(taskID)) {
+      obj.bookmarked = false;
+      bookmarkedTasks.value.splice(bookmarkedTasks.value.indexOf(taskID), 1);
+    }
+  });
+}
 
 
 
@@ -64,20 +73,24 @@ const path = ref('');
       <v-container fluid>
 
         <v-row>
-          <p>New Task input check: {{ newTask }}</p>
+          <p>for Check...</p>
         </v-row>
         <v-row>
-          <p>All tasks list</p>
+          <p>===> New Task input: {{ newTask }}</p>
+        </v-row>
+        <v-row>
+          <p>==> All tasks list</p>
           <li v-for="(task, index) in allTasks">
             Index: {{ index }} // ID: {{ task.id }} // Name: {{ task.name }} // Bookmarked: {{ task.bookmarked }} // Completed: {{ task.completed }} // Checked: {{ task.checked }}
           </li>
         </v-row>
 
         <v-row>
-          <p>Bookmarked tasks's ID list</p>
-          <li v-for="(task) in bookmarkedTasks">
-            {{ task }}
-          </li>
+          ==> Bookmarked tasks's ID list: {{ bookmarkedTasks }}
+        </v-row>
+
+        <v-row>
+          ==> Checked tasks's ID list: {{ chekedTasks }} 
         </v-row>
 
         <v-row>
@@ -89,7 +102,8 @@ const path = ref('');
                   <v-checkbox v-model="task.checked">
                     <template #label>{{ capitalize(task.name) }}</template>
                   </v-checkbox>
-                  <v-icon :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)" />
+                  <v-icon v-if="task.bookmarked != true" :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)" />
+                  <v-icon v-else :icon="mdiBookmark" @click="unBookmarkTask(task.id)" />
                 </v-list-item-action>
               </v-list-item>
           </v-list>
