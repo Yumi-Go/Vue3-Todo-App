@@ -28,7 +28,14 @@ const capitalize = (name) => {
 
 const bookmarkedTasks = ref([]);
 const bookmarkTask = (taskID) => {
-  bookmarkedTasks.value.push(taskID)
+  allTasks.value.map(obj => {
+    if (obj.id === taskID) {
+      obj.bookmarked = true;
+      if (!bookmarkedTasks.value.includes(taskID)) {
+        bookmarkedTasks.value.push(taskID);
+      }
+    }
+  });
 }
 
 
