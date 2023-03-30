@@ -26,8 +26,6 @@ const capitalize = (name) => {
   return firstLetter + rest;
 }
 
-// const checkedTasks = ref([]);
-
 const checkedTasks = () => {
   const result = [];
   allTasks.value.map(obj => {
@@ -37,7 +35,6 @@ const checkedTasks = () => {
   });
   return result;
 }
-
 
 const bookmarkedTasks = ref([]);
 
@@ -58,8 +55,6 @@ const unBookmarkTask = (taskID) => {
     }
   });
 }
-
-
 
 const removeTask = (index) => {
   todos.value.splice(index, 1);
