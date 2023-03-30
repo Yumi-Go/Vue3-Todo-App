@@ -26,7 +26,18 @@ const capitalize = (name) => {
   return firstLetter + rest;
 }
 
-const chekedTasks = ref([]);
+// const checkedTasks = ref([]);
+
+const checkedTasks = () => {
+  const result = [];
+  allTasks.value.map(obj => {
+    if (obj.checked == true) {
+      result.push(obj.id);
+    }
+  });
+  return result;
+}
+
 
 const bookmarkedTasks = ref([]);
 
@@ -90,7 +101,7 @@ const path = ref('');
         </v-row>
 
         <v-row>
-          ==> Checked tasks's ID list: {{ chekedTasks }} 
+          ==> Checked tasks's ID list: {{ checkedTasks() }} 
         </v-row>
 
         <v-row>
