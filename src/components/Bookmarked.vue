@@ -12,14 +12,15 @@ console.log(allTasks.value);
 
 // const objAllTasks = JSON.parse(allTasks);
 
+const bookmarkedTasks = ref([]);
 
-const bookmarkedTasks = () => {
+const getBookmarkedTasks = () => {
     const result = [];
     // if (Object.keys(allTasks.value).length > 0) {
         console.log(Object.keys(allTasks.value).length);
         allTasks.value.map(obj => {
             if (obj.bookmarked == true) {
-                result.push(obj.id);
+                bookmarkedTasks.value.push(obj);
             }
         });
     // }
@@ -30,17 +31,17 @@ const bookmarkedTasks = () => {
     
 }
 
+getBookmarkedTasks();
 
 
 </script>
 
 <template>
 <h2>this is Bookmarked component</h2>
-<!-- <li v-for="task in bookmarkedTasks()">
+<li v-for="task in bookmarkedTasks">
     {{ task.name }}
-</li> -->
+</li>
 
-{{ bookmarkedTasks() }}
 
 
 </template>
