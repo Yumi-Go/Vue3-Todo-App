@@ -1,21 +1,25 @@
 <script setup>
 import { ref } from "vue";
+import { useLocalStorage } from '@vueuse/core';
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiBookmarkOutline, mdiBookmark, mdiPlus } from '@mdi/js'
 
 const newTask = ref('');
 let counter = 0;
-const allTasks = ref([]);
+// const allTasks = ref([]);
+const allTasks = useLocalStorage('all', []);
+
+
 
 const addTask = () => {
-  const id = 't' + ++counter;
+  const newId = 't' + ++counter;
   allTasks.value.push({
-    id: id,
+    id: newId,
     name: newTask.value,
     bookmarked: false,
     completed: false,
   });
-  localStorage.setItem(id, newTask.value);
+  // localStorage.setItem(newId, newTask.value);
   newTask.value = '';
 }
 
@@ -34,6 +38,7 @@ const completedTasks = () => {
   });
   return result;
 }
+
 
 const bookmarkedTasks = ref([]);
 
@@ -58,6 +63,24 @@ const unBookmarkTask = (taskID) => {
 const removeTask = (index) => {
   todos.value.splice(index, 1);
 }
+
+
+
+// const arrayString = JSON.stringify(allTasks);
+
+localStorage.setItem('allTasks', JSON.stringify(allTasks));
+
+
+// // for check
+// const arrayString = localStorage.getItem('allTasks');
+// const getTasks = JSON.parse(arrayString);
+// console.log(getTasks);
+
+
+
+
+
+
 
 // const path = ref('');
 </script>
@@ -98,7 +121,7 @@ const removeTask = (index) => {
                     <template #label v-else>{{ capitalize(task.name) }}</template>
 
                   </v-checkbox>
-                  <v-icon v-if="task.bookmarked != true" :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)" />
+                  <v-icon v-if="!task.bookmarked" :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)" />
                   <v-icon v-else :icon="mdiBookmark" @click="unBookmarkTask(task.id)" />
                 </v-list-item-action>
               </v-list-item>
