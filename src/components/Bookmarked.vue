@@ -1,6 +1,5 @@
 <script setup>
 import { ref } from 'vue'
-// const item = localStorage.getItem
 const bookmaredTasks = ref([]);
 const getItems = () => {
     if (localStorage.length > 0) {

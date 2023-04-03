@@ -8,13 +8,14 @@ let counter = 0;
 const allTasks = ref([]);
 
 const addTask = () => {
+  const id = 't' + ++counter;
   allTasks.value.push({
-    id: 't' + ++counter,
+    id: id,
     name: newTask.value,
     bookmarked: false,
     completed: false,
   });
-  localStorage.setItem(newTask.value, newTask.value);
+  localStorage.setItem(id, newTask.value);
   newTask.value = '';
 }
 
