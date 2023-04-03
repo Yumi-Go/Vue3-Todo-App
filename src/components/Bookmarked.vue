@@ -32,20 +32,15 @@ const bookmarkedTasks = () => {
 
 
 
-// console.log(allTasks);
-// console.log(allTasks.value);
-// console.log(bookmarkedTasks.value);
-
-
 </script>
 
 <template>
 <h2>this is Bookmarked component</h2>
-<li v-for="task in bookmarkedTasks">
-    {{ task }}
-</li>
+<!-- <li v-for="task in bookmarkedTasks()">
+    {{ task.name }}
+</li> -->
 
-
+{{ bookmarkedTasks() }}
 
 
 </template>
