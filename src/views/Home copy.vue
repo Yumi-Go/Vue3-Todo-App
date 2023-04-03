@@ -1,5 +1,7 @@
 <script setup>
 import { ref } from "vue";
+import AllTasks from '../components/AllTasks.vue'
+import Bookmarked from '../components/Bookmarked.vue'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiBookmarkOutline, mdiBookmark, mdiPlus } from '@mdi/js'
 
@@ -14,7 +16,6 @@ const addTask = () => {
     bookmarked: false,
     completed: false,
   });
-  localStorage.setItem(newTask.value, newTask.value);
   newTask.value = '';
 }
 
@@ -58,11 +59,32 @@ const removeTask = (index) => {
   todos.value.splice(index, 1);
 }
 
-// const path = ref('');
+
+
+
+const path = ref('');
 </script>
 
 <template>
+<div class="relative w-full h-full bg-red-600">
+  <!-- <div class="absolute w-[600px] h-[800px] top-1/2	left-1/2 -mt-[400px] mr-0 mb-0 -ml-[300px] bg-gray-300"> -->
+    <div class="absolute w-[600px] h-[800px]  bg-gray-300">
+    <div class="flex flex-row mb-6 bg-sky-400">
+      <div class="todo w-[109px] h-[39px] bg-red-300" >TO-DO</div>
+      <div class="button_on">All tasks</div>
+      
+      <router-link
+      to="/bookmarked"
+      v-slot="{ bookmarked }">
+        <div class="button_off" @click="bookmarked">Bookmarked</div>
+      </router-link> 
+    
+    
+    
+    </div>
+    <router-view />
 
+    <div class="bg-pink-400">
       <v-container fluid>
 
         <v-row>
@@ -108,7 +130,7 @@ const removeTask = (index) => {
           v-model="newTask"
           label="Add a new Task"
           variant="solo"
-          class="mt-5 mx-5">
+          class="m-5">
             <template #append-inner>
               <svg-icon type="mdi" :path="mdiPlus" @click.prevent="addTask"></svg-icon>
             </template>
@@ -123,22 +145,87 @@ const removeTask = (index) => {
 
 
 
+
+        <AllTasks />
+        <Bookmarked />
+    </div>
+  </div>
+</div>
+
 </template>
 
 <style scoped>
 
+.todo {
+
+    /* height: 39px; */
+/* width: 109px; */
+/* left: 340px; */
+/* top: 29px; */
+border-radius: nullpx;
 
 
+    font-family: Inter;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 39px;
+    letter-spacing: 0em;
+    text-align: left;
+
+
+color: #000000;
+
+
+
+
+
+
+
+}
+.button_on {
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+
+    width: 118px;
+    height: 40px;
+
+    background: #E8DEF8;
+
+    border: 1px solid #79747E;
+    border-radius: 100px 0px 0px 100px;
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 1;
+}
+
+.button_off {
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+
+    width: 118px;
+    height: 40px;
+
+    border: 1px solid #79747E;
+    border-left: 0px;
+    border-radius: 0px 100px 100px 0px;
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 1;
+
+
+}
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
