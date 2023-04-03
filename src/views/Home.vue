@@ -7,8 +7,12 @@ import { mdiBookmarkOutline, mdiBookmark, mdiPlus } from '@mdi/js'
 const newTask = ref('');
 let counter = 0;
 // const allTasks = ref([]);
+// const addLocal = useLocalStorage('all', JSON.stringify(allTasks.value));
+
 const allTasks = useLocalStorage('all', []);
 
+
+// console.log(JSON.stringify(allTasks));
 
 
 const addTask = () => {
@@ -39,7 +43,6 @@ const completedTasks = () => {
   return result;
 }
 
-
 const bookmarkedTasks = ref([]);
 
 const bookmarkTask = (taskID) => {
@@ -63,21 +66,6 @@ const unBookmarkTask = (taskID) => {
 const removeTask = (index) => {
   todos.value.splice(index, 1);
 }
-
-
-
-// const arrayString = JSON.stringify(allTasks);
-
-localStorage.setItem('allTasks', JSON.stringify(allTasks));
-
-
-// // for check
-// const arrayString = localStorage.getItem('allTasks');
-// const getTasks = JSON.parse(arrayString);
-// console.log(getTasks);
-
-
-
 
 
 
