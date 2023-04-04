@@ -9,7 +9,7 @@ const newTask = ref('');
 const storeAllTasks = useLocalStorage('all', []);
 const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
 
-let counter = () => {
+const counter = () => {
   let result = 1;
   if (getAllTasks.value.length > 0) {
     console.log(getAllTasks.value[getAllTasks.value.length - 1].id);
@@ -26,7 +26,6 @@ console.log(typeof getAllTasks.value);
 
 
 const addTask = () => {
-  // const newId = counter++;
   storeAllTasks.value.push({
     id: counter(),
     name: newTask.value,
