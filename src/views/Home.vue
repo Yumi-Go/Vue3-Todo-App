@@ -18,20 +18,18 @@ const counter = () => {
   return result;
 }
 
-
-
-
 console.log(getAllTasks.value);
 console.log(typeof getAllTasks.value);
 
-
 const addTask = () => {
-  storeAllTasks.value.push({
-    id: counter(),
-    name: newTask.value,
-    bookmarked: false,
-    completed: false,
-  });
+  if (newTask.value.trim().length > 0) {
+    storeAllTasks.value.push({
+      id: counter(),
+      name: newTask.value,
+      bookmarked: false,
+      completed: false,
+    });
+  }
   newTask.value = '';
 }
 
@@ -43,43 +41,49 @@ const addTask = () => {
 
 const completedTasks = () => {
   const result = [];
-  getAllTasks.value.map(obj => {
-    if (obj.completed) {
-      result.push(obj.id);
-    }
-  });
+  if (getAllTasks.value.length > 0) {
+    getAllTasks.value.map(obj => {
+      if (obj.completed) {
+        result.push(obj.id);
+      }
+    });
+  }
   return result;
 }
 
 const bookmarkedTasks = () => {
   const result = [];
-  getAllTasks.value.map(obj => {
-    if (obj.bookmarked) {
-      result.push(obj.id)
-    }
-  });
+  if (getAllTasks.value.length > 0) {
+    getAllTasks.value.map(obj => {
+      if (obj.bookmarked) {
+        result.push(obj.id);
+      }
+    });
+  }
   return result;
 }
 
 const bookmarkTask = (taskID) => {
-  getAllTasks.value.map(obj => {
-    if (obj.id === taskID && !bookmarkedTasks().includes(taskID)) {
-      obj.bookmarked = true;
-      // bookmarkedTasks.value.push(taskID);
-    }
-  });
+  if (getAllTasks.value.length > 0) {
+    getAllTasks.value.map(obj => {
+      if (obj.id === taskID && !bookmarkedTasks().includes(taskID)) {
+        obj.bookmarked = true;
+      }
+    });
+  }
 }
 
 const unBookmarkTask = (taskID) => {
-  getAllTasks.value.map(obj => {
-    if (obj.id === taskID && bookmarkedTasks().includes(taskID)) {
-      console.log("obj.id type: ", typeof obj.id);
-      console.log("taskID type: ", typeof taskID);
-
-      obj.bookmarked = false;
-      bookmarkedTasks().splice(bookmarkedTasks().indexOf(taskID), 1);
-    }
-  });
+  if (getAllTasks.value.length > 0) {
+    getAllTasks.value.map(obj => {
+      if (obj.id === taskID && bookmarkedTasks().includes(taskID)) {
+        console.log("obj.id type: ", typeof obj.id);
+        console.log("taskID type: ", typeof taskID);
+        obj.bookmarked = false;
+        bookmarkedTasks().splice(bookmarkedTasks().indexOf(taskID), 1);
+      }
+    });
+  }
 }
 
 const removeTask = (index) => {
