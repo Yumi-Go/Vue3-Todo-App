@@ -2,12 +2,10 @@
 import { ref } from "vue";
 import { useLocalStorage, StorageSerializers } from '@vueuse/core';
 import SvgIcon from '@jamescoyle/vue-icon'
-import { mdiBookmarkOutline, mdiBookmark, mdiPlus } from '@mdi/js'
+import { mdiBookmarkOutline, mdiBookmark, mdiPlus, mdiTrashCanOutline } from '@mdi/js'
 
 const newTask = ref('');
 let counter = 0;
-// const allTasks = ref([]);
-// const addLocal = useLocalStorage('all', JSON.stringify(allTasks.value));
 
 const storeAllTasks = useLocalStorage('all', []);
 const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
@@ -114,7 +112,7 @@ const removeTask = (index) => {
           <v-list class="w-full h-[500px] m-0">
             <span v-if="getAllTasks.length === 0">0 task.. Add a task!</span>
             <span v-else>Your Tasks</span>
-              <v-list-item v-for="(task) in getAllTasks">
+              <v-list-item v-for="(task) in getAllTasks" class="hover:bg-red-100 group">
                 <v-list-item-action>
                   <v-checkbox v-model="task.completed">
                     <template #label v-if="task.completed"><span class="line-through"> {{ capitalize(task.name) }}</span></template>
@@ -122,6 +120,8 @@ const removeTask = (index) => {
                   </v-checkbox>
                   <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="unBookmarkTask(task.id)" />
                   <v-icon v-else :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)" />
+                  <v-icon class="invisible group-hover:visible" :icon="mdiTrashCanOutline"></v-icon>
+
                 </v-list-item-action>
               </v-list-item>
           </v-list>
