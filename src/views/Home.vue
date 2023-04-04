@@ -5,32 +5,42 @@ import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiBookmarkOutline, mdiBookmark, mdiPlus, mdiTrashCanOutline } from '@mdi/js'
 
 const newTask = ref('');
-let counter = 1;
 
 const storeAllTasks = useLocalStorage('all', []);
 const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
+
+let counter = () => {
+  let result = 1;
+  if (getAllTasks.value.length > 0) {
+    console.log(getAllTasks.value[getAllTasks.value.length - 1].id);
+    result = getAllTasks.value[getAllTasks.value.length - 1].id + 1;
+  }
+  return result;
+}
+
+
+
 
 console.log(getAllTasks.value);
 console.log(typeof getAllTasks.value);
 
 
 const addTask = () => {
-  const newId = counter++;
+  // const newId = counter++;
   storeAllTasks.value.push({
-    id: newId,
+    id: counter(),
     name: newTask.value,
     bookmarked: false,
     completed: false,
   });
-  // localStorage.setItem(newId, newTask.value);
   newTask.value = '';
 }
 
-const capitalize = (name) => {
-  const firstLetter = name[0].toUpperCase();
-  const rest = name.slice(1);
-  return firstLetter + rest;
-}
+// const capitalize = (name) => {
+//   const firstLetter = name[0].toUpperCase();
+//   const rest = name.slice(1);
+//   return firstLetter + rest;
+// }
 
 const completedTasks = () => {
   const result = [];
@@ -115,8 +125,8 @@ const removeTask = (index) => {
               <v-list-item v-for="(task) in getAllTasks" class="hover:bg-red-100 group">
                 <v-list-item-action>
                   <v-checkbox v-model="task.completed">
-                    <template #label v-if="task.completed"><span class="line-through"> {{ capitalize(task.name) }}</span></template>
-                    <template #label v-else>{{ capitalize(task.name) }}</template>
+                    <template #label v-if="task.completed"><span class="line-through"> {{ task.name }}</span></template>
+                    <template #label v-else>{{ task.name }}</template>
                   </v-checkbox>
                   <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="unBookmarkTask(task.id)" />
                   <v-icon v-else :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)" />
@@ -132,7 +142,7 @@ const removeTask = (index) => {
           label="Add a new Task"
           variant="solo"
           class="mt-5 mx-5"
-          @keypress.enter="addTask()">
+          @keypress.enter.preventDefault="addTask()">
             <template #append-inner>
               <svg-icon type="mdi" :path="mdiPlus" @click.prevent="addTask()"></svg-icon>
             </template>
