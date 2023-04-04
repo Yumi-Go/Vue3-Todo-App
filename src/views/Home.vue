@@ -11,6 +11,7 @@ const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializer
 
 const counter = () => {
   let result = 1;
+  // if (getAllTasks.value != null) {
   if (getAllTasks.value.length > 0) {
     console.log(getAllTasks.value[getAllTasks.value.length - 1].id);
     result = getAllTasks.value[getAllTasks.value.length - 1].id + 1;
@@ -33,14 +34,9 @@ const addTask = () => {
   newTask.value = '';
 }
 
-// const capitalize = (name) => {
-//   const firstLetter = name[0].toUpperCase();
-//   const rest = name.slice(1);
-//   return firstLetter + rest;
-// }
-
 const completedTasks = () => {
   const result = [];
+  // if (getAllTasks.value != null) {
   if (getAllTasks.value.length > 0) {
     getAllTasks.value.map(obj => {
       if (obj.completed) {
@@ -53,6 +49,7 @@ const completedTasks = () => {
 
 const bookmarkedTasks = () => {
   const result = [];
+  // if (getAllTasks.value != null) {
   if (getAllTasks.value.length > 0) {
     getAllTasks.value.map(obj => {
       if (obj.bookmarked) {
@@ -64,6 +61,7 @@ const bookmarkedTasks = () => {
 }
 
 const bookmarkTask = (taskID) => {
+  // if (getAllTasks.value != null) {
   if (getAllTasks.value.length > 0) {
     getAllTasks.value.map(obj => {
       if (obj.id === taskID && !bookmarkedTasks().includes(taskID)) {
@@ -74,6 +72,7 @@ const bookmarkTask = (taskID) => {
 }
 
 const unBookmarkTask = (taskID) => {
+  // if (getAllTasks.value != null) {
   if (getAllTasks.value.length > 0) {
     getAllTasks.value.map(obj => {
       if (obj.id === taskID && bookmarkedTasks().includes(taskID)) {
@@ -86,8 +85,11 @@ const unBookmarkTask = (taskID) => {
   }
 }
 
-const removeTask = (index) => {
-  getAllTasks.value.splice(index, 1);
+const deleteTask = (index) => {
+  // if (getAllTasks.value != null) {
+  if (getAllTasks.value.length > 0) {
+    getAllTasks.value.splice(index, 1);
+  }
 }
 
 
@@ -123,7 +125,8 @@ const removeTask = (index) => {
 
         <v-row>
           <v-list class="w-full h-[500px] m-0">
-            <span v-if="getAllTasks.length === 0">0 task.. Add a task!</span>
+            <span v-if="getAllTasks === null">0 task.. Add a task!</span>
+            <!-- <span v-if="getAllTasks.length === 0">0 task.. Add a task!</span> -->
             <span v-else>Your Tasks</span>
               <v-list-item v-for="(task) in getAllTasks" class="hover:bg-red-100 group">
                 <v-list-item-action>
@@ -133,7 +136,7 @@ const removeTask = (index) => {
                   </v-checkbox>
                   <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="unBookmarkTask(task.id)" />
                   <v-icon v-else :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)" />
-                  <v-icon class="invisible group-hover:visible" :icon="mdiTrashCanOutline"></v-icon>
+                  <v-icon class="invisible group-hover:visible" :icon="mdiTrashCanOutline" @click="deleteTask(getAllTasks.indexOf(task))"></v-icon>
 
                 </v-list-item-action>
               </v-list-item>
