@@ -5,7 +5,7 @@ import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiBookmarkOutline, mdiBookmark, mdiPlus, mdiTrashCanOutline } from '@mdi/js'
 
 const newTask = ref('');
-let counter = 0;
+let counter = 1;
 
 const storeAllTasks = useLocalStorage('all', []);
 const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
@@ -15,7 +15,7 @@ console.log(typeof getAllTasks.value);
 
 
 const addTask = () => {
-  const newId = 't' + ++counter;
+  const newId = counter++;
   storeAllTasks.value.push({
     id: newId,
     name: newTask.value,
@@ -131,9 +131,10 @@ const removeTask = (index) => {
           v-model="newTask"
           label="Add a new Task"
           variant="solo"
-          class="mt-5 mx-5">
+          class="mt-5 mx-5"
+          @keypress.enter="addTask()">
             <template #append-inner>
-              <svg-icon type="mdi" :path="mdiPlus" @click.prevent="addTask"></svg-icon>
+              <svg-icon type="mdi" :path="mdiPlus" @click.prevent="addTask()"></svg-icon>
             </template>
           </v-text-field>
 
