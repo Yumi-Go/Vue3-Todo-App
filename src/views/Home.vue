@@ -36,39 +36,47 @@ const capitalize = (name) => {
 
 const completedTasks = () => {
   const result = [];
-  storeAllTasks.value.map(obj => {
-    if (obj.completed == true) {
+  getAllTasks.value.map(obj => {
+    if (obj.completed) {
       result.push(obj.id);
     }
   });
   return result;
 }
 
-const bookmarkedTasks = ref([]);
+const bookmarkedTasks = () => {
+  const result = [];
+  getAllTasks.value.map(obj => {
+    if (obj.bookmarked) {
+      result.push(obj.id)
+    }
+  });
+  return result;
+}
 
 const bookmarkTask = (taskID) => {
-  storeAllTasks.value.map(obj => {
-    if (obj.id === taskID && !bookmarkedTasks.value.includes(taskID)) {
+  getAllTasks.value.map(obj => {
+    if (obj.id === taskID && !bookmarkedTasks().includes(taskID)) {
       obj.bookmarked = true;
-      bookmarkedTasks.value.push(taskID);
+      // bookmarkedTasks.value.push(taskID);
     }
   });
 }
 
 const unBookmarkTask = (taskID) => {
-  storeAllTasks.value.map(obj => {
-    if (obj.id === taskID && bookmarkedTasks.value.includes(taskID)) {
+  getAllTasks.value.map(obj => {
+    if (obj.id === taskID && bookmarkedTasks().includes(taskID)) {
       console.log("obj.id type: ", typeof obj.id);
       console.log("taskID type: ", typeof taskID);
 
       obj.bookmarked = false;
-      bookmarkedTasks.value.splice(bookmarkedTasks.value.indexOf(taskID), 1);
+      bookmarkedTasks().splice(bookmarkedTasks().indexOf(taskID), 1);
     }
   });
 }
 
 const removeTask = (index) => {
-  storeAllTasks.value.splice(index, 1);
+  getAllTasks.value.splice(index, 1);
 }
 
 
@@ -95,7 +103,7 @@ const removeTask = (index) => {
         </v-row>
 
         <v-row>
-          ==> Bookmarked tasks's ID list: {{ bookmarkedTasks }}
+          ==> Bookmarked tasks's ID list: {{ bookmarkedTasks() }}
         </v-row>
 
         <v-row>
@@ -111,9 +119,8 @@ const removeTask = (index) => {
                   <v-checkbox v-model="task.completed">
                     <template #label v-if="task.completed"><span class="line-through"> {{ capitalize(task.name) }}</span></template>
                     <template #label v-else>{{ capitalize(task.name) }}</template>
-
                   </v-checkbox>
-                  <v-icon v-if="task.bookmarked == true" :icon="mdiBookmark" @click="unBookmarkTask(task.id)" />
+                  <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="unBookmarkTask(task.id)" />
                   <v-icon v-else :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)" />
                 </v-list-item-action>
               </v-list-item>
