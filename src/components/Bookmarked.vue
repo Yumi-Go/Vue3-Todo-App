@@ -36,10 +36,40 @@ getBookmarkedTasks();
 <template>
 <h2>this is Bookmarked component</h2>
 
-<li v-if="bookmarkedTasks.length > 0" v-for="task in bookmarkedTasks">
+<!-- <li v-if="bookmarkedTasks.length > 0" v-for="task in bookmarkedTasks">
     {{ task.name }}
 </li>
-<p v-else>Bookmarked tasks list is empty.</p>
+<p v-else>Bookmarked tasks list is empty.</p> -->
+
+
+
+
+
+
+
+<v-container fluid>
+
+<v-row>
+  <v-list class="w-full h-[500px] m-0">
+    <span v-if="bookmarkedTasks.length < 1">Bookmarked tasks list is empty!!</span>
+    <span v-else>Your Bookmarked Tasks</span>
+      <v-list-item v-for="(task, index) in bookmarkedTasks" class="hover:bg-red-100">
+        {{ index + 1 }}: {{ task.name }}
+
+      </v-list-item>
+  </v-list>
+</v-row>
+
+
+</v-container>
+
+
+
+
+
+
+
+
 
 
 
