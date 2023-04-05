@@ -130,9 +130,7 @@ const filteredTaskNames = () => {
 }
 
 
-console.log(filteredTaskNames());
-// filteredTaskNames(); // for check
-
+console.log(filteredTaskNames()); // for check
 
 
 </script>
@@ -164,17 +162,7 @@ console.log(filteredTaskNames());
 
 
         <v-row>
-{{ taskNames().length }}
 
-          <!-- <v-autocomplete
-            v-model="search"
-            :taskNames="taskNames"
-            :search-input.sync="search"
-            label="Default"
-            return-object
-          ></v-autocomplete> -->
-
-          <!-- console.log({{taskNames()}}); -->
           <v-text-field
             v-model="search"
             label="Search"
@@ -191,15 +179,17 @@ console.log(filteredTaskNames());
         </v-row>
 
         <v-row>
-          
-
-
-<v-list :items="filteredTaskNames()">
-
-
-</v-list>
-
-
+          <v-list bg-color="red" class="w-full h-[500px] m-0">
+            <v-list-item
+            v-for="(item, i) in filteredTaskNames()"
+            :key="i"
+            class="hover:bg-red-400 group"
+            >
+              <v-list-item-title v-text="item"></v-list-item-title>
+            </v-list-item>
+          </v-list>
+          <!-- <v-list :items="filteredTaskNames()" bg-color="red" class="w-full m-0">
+          </v-list> -->
         </v-row>
 
 
