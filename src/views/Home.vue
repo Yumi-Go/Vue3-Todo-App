@@ -164,7 +164,7 @@ const filteredTasks = () => {
         </v-row>
 
         <v-row>
-          <v-list bg-color="red" class="w-full h-[500px] m-0">
+          <v-list bg-color="blue" class="w-full h-[500px] m-0">
             <span v-if="getAllTasks.length < 1">0 task.. Add a task!</span>
             <span v-else>Your Tasks</span>
             <v-list-item
