@@ -2,9 +2,10 @@
 import { ref } from "vue";
 import { useLocalStorage, StorageSerializers } from '@vueuse/core';
 import SvgIcon from '@jamescoyle/vue-icon'
-import { mdiBookmarkOutline, mdiBookmark, mdiPlus, mdiTrashCanOutline } from '@mdi/js'
+import { mdiBookmarkOutline, mdiBookmark, mdiPlus, mdiTrashCanOutline, mdiMagnify } from '@mdi/js'
 
 const newTask = ref('');
+const search = ref('');
 
 const storeAllTasks = useLocalStorage('all', []);
 const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
@@ -93,9 +94,47 @@ const deleteTask = (index) => {
 }
 
 
+// const temp = [];
+// setTimeout(() => temp.value = taskNames());
 
 
-// const path = ref('');
+
+const taskNames = () => {
+  const result = [];
+  if (getAllTasks.value.length > 0) {
+    getAllTasks.value.map(obj => {
+      result.push(obj.name);
+    });
+  }
+  return result;
+}
+
+const filteredTaskNames = () => {
+  let input = search.value.toLowerCase();
+
+
+	return taskNames().filter((name) => {
+    return name.toLowerCase().match(search.value.toLowerCase())
+  });
+
+	for (let i = 0; i < taskNames().length; i++) {
+    console.log(taskNames().length);
+	// 	if (!taskNames[i].toLowerCase().includes(input)) {
+	// 		taskNames[i].style.display="none";
+	// 	}
+	// 	else {
+	// 		taskNames[i].style.display="list-item";				
+	// 	}
+	// }
+}
+}
+
+
+console.log(filteredTaskNames());
+// filteredTaskNames(); // for check
+
+
+
 </script>
 
 <template>
@@ -123,10 +162,53 @@ const deleteTask = (index) => {
           ==> Completed tasks's ID list: {{ completedTasks() }} 
         </v-row>
 
+
+        <v-row>
+{{ taskNames().length }}
+
+          <!-- <v-autocomplete
+            v-model="search"
+            :taskNames="taskNames"
+            :search-input.sync="search"
+            label="Default"
+            return-object
+          ></v-autocomplete> -->
+
+          <!-- console.log({{taskNames()}}); -->
+          <v-text-field
+            v-model="search"
+            label="Search"
+            single-line
+            hide-details
+          >
+          <template #append-inner>
+            <svg-icon type="mdi" :path="mdiMagnify"></svg-icon>
+          </template>
+        
+        
+        </v-text-field>
+
+        </v-row>
+
+        <v-row>
+          
+
+
+<v-list :items="filteredTaskNames()">
+
+
+</v-list>
+
+
+        </v-row>
+
+
+
+
+
         <v-row>
           <v-list class="w-full h-[500px] m-0">
-            <span v-if="getAllTasks === null">0 task.. Add a task!</span>
-            <!-- <span v-if="getAllTasks.length === 0">0 task.. Add a task!</span> -->
+            <span v-if="getAllTasks.length === 0">0 task.. Add a task!</span>
             <span v-else>Your Tasks</span>
               <v-list-item v-for="(task) in getAllTasks" class="hover:bg-red-100 group">
                 <v-list-item-action>
@@ -148,7 +230,8 @@ const deleteTask = (index) => {
           label="Add a new Task"
           variant="solo"
           class="mt-5 mx-5"
-          @keypress.enter.preventDefault="addTask()">
+          @keypress.enter.preventDefault="addTask()"
+          >
             <template #append-inner>
               <svg-icon type="mdi" :path="mdiPlus" @click.prevent="addTask()"></svg-icon>
             </template>
