@@ -124,9 +124,9 @@ const filteredTasks = () => {
 
 <template>
 
-      <v-container fluid>
+      <v-container fluid class="px-5">
 
-        <v-row>
+        <!-- <v-row>
           <p>for Check...</p>
         </v-row>
         <v-row>
@@ -138,23 +138,23 @@ const filteredTasks = () => {
             Index: {{ index }} // ID: {{ task.id }} // Name: {{ task.name }} // Bookmarked: {{ task.bookmarked }} // Completed: {{ task.completed }}
           </li>
         </v-row>
-
         <v-row>
           ==> Bookmarked tasks's ID list: {{ bookmarkedTasks() }}
         </v-row>
-
         <v-row>
           ==> Completed tasks's ID list: {{ completedTasks() }} 
-        </v-row>
-
+        </v-row> -->
 
         <v-row>
 
           <v-text-field
             v-model="search"
             label="Search"
+            color="black"
+            bg-color="#FFEBEE"
             single-line
             hide-details
+            class="mb-1"
           >
           <template #append-inner>
             <svg-icon type="mdi" :path="mdiMagnify"></svg-icon>
@@ -164,27 +164,25 @@ const filteredTasks = () => {
         </v-row>
 
         <v-row>
-          <v-list bg-color="green" class="w-full h-[500px] m-0">
+          <v-list bg-color="pink" class="w-full h-[500px] m-0 text-white">
             <span v-if="getAllTasks.length < 1">0 task.. Add a task!</span>
             <span v-else>Your Tasks</span>
             <v-list-item
             v-for="(task, i) in filteredTasks()"
             :key="i"
-            class="hover:bg-red-400 group"
+            class="hover:bg-red-300 hover:text-black group"
             >
-              <!-- <v-list-item-title>{{task.name}}</v-list-item-title> -->
 
+            <v-list-item-action>
+              <v-checkbox v-model="task.completed">
+                <template #label v-if="task.completed"><span class="line-through font-bold"> {{ task.name }}</span></template>
+                <template #label v-else><span class="font-bold">{{ task.name }}</span></template>
+              </v-checkbox>
+              <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="unBookmarkTask(task.id)" />
+              <v-icon v-else :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)" />
+              <v-icon class="invisible group-hover:visible" :icon="mdiTrashCanOutline" @click="deleteTask(getAllTasks.indexOf(task))"></v-icon>
 
-              <v-list-item-action>
-                  <v-checkbox v-model="task.completed">
-                    <template #label v-if="task.completed"><span class="line-through"> {{ task.name }}</span></template>
-                    <template #label v-else>{{ task.name }}</template>
-                  </v-checkbox>
-                  <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="unBookmarkTask(task.id)" />
-                  <v-icon v-else :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)" />
-                  <v-icon class="invisible group-hover:visible" :icon="mdiTrashCanOutline" @click="deleteTask(getAllTasks.indexOf(task))"></v-icon>
-
-                </v-list-item-action>
+            </v-list-item-action>
 
 
 
@@ -220,6 +218,8 @@ const filteredTasks = () => {
           v-model="newTask"
           label="Add a new Task"
           variant="solo"
+          color="#B71C1C"
+          bg-color="white"
           class="mt-5 mx-5"
           @keypress.enter.preventDefault="addTask()"
           >

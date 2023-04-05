@@ -7,8 +7,8 @@ import Home from '../src/views/Home.vue'
 
 <div id="outerWrapper" class="flex flex-col justify-center items-center w-full h-full">
 
-    <div class="flex justify-between w-[600px] bg-sky-400">
-      <div class="todo w-[109px] h-[39px] bg-red-300" >TO-DO</div>
+    <div class="flex justify-between w-[600px] bg-red-200 px-5 py-2">
+      <div class="todo w-[109px] h-[39px] bg-red-200" >TO-DO</div>
         <div class="">
           <button class="button_on">
             <router-link :to="{ name: 'Home' }">All Tasks</router-link>
@@ -18,7 +18,7 @@ import Home from '../src/views/Home.vue'
           </button>
         </div>
     </div>
-    <div class="w-[600px] bg-gray-300">
+    <div class="w-[600px] bg-red-200">
       <router-view />
     </div>
 
