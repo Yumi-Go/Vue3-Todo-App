@@ -99,38 +99,25 @@ const deleteTask = (index) => {
 
 
 
-const taskNames = () => {
-  const result = [];
-  if (getAllTasks.value.length > 0) {
-    getAllTasks.value.map(obj => {
-      result.push(obj.name);
-    });
-  }
-  return result;
-}
+// const taskNames = () => {
+//   const result = [];
+//   if (getAllTasks.value.length > 0) {
+//     getAllTasks.value.map(obj => {
+//       result.push(obj.name);
+//     });
+//   }
+//   return result;
+// }
 
-const filteredTaskNames = () => {
+const filteredTasks = () => {
   let input = search.value.toLowerCase();
-
-
-	return taskNames().filter((name) => {
-    return name.toLowerCase().match(search.value.toLowerCase())
+	return getAllTasks.value.filter((obj) => {
+    return obj.name.toLowerCase().match(input)
   });
-
-	for (let i = 0; i < taskNames().length; i++) {
-    console.log(taskNames().length);
-	// 	if (!taskNames[i].toLowerCase().includes(input)) {
-	// 		taskNames[i].style.display="none";
-	// 	}
-	// 	else {
-	// 		taskNames[i].style.display="list-item";				
-	// 	}
-	// }
-}
 }
 
 
-console.log(filteredTaskNames()); // for check
+// console.log(filteredTasks()); // for check
 
 
 </script>
@@ -172,23 +159,40 @@ console.log(filteredTaskNames()); // for check
           <template #append-inner>
             <svg-icon type="mdi" :path="mdiMagnify"></svg-icon>
           </template>
-        
-        
         </v-text-field>
 
         </v-row>
 
         <v-row>
           <v-list bg-color="red" class="w-full h-[500px] m-0">
+            <span v-if="getAllTasks.length < 1">0 task.. Add a task!</span>
+            <span v-else>Your Tasks</span>
             <v-list-item
-            v-for="(item, i) in filteredTaskNames()"
+            v-for="(task, i) in filteredTasks()"
             :key="i"
             class="hover:bg-red-400 group"
             >
-              <v-list-item-title v-text="item"></v-list-item-title>
+              <!-- <v-list-item-title>{{task.name}}</v-list-item-title> -->
+
+
+              <v-list-item-action>
+                  <v-checkbox v-model="task.completed">
+                    <template #label v-if="task.completed"><span class="line-through"> {{ task.name }}</span></template>
+                    <template #label v-else>{{ task.name }}</template>
+                  </v-checkbox>
+                  <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="unBookmarkTask(task.id)" />
+                  <v-icon v-else :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)" />
+                  <v-icon class="invisible group-hover:visible" :icon="mdiTrashCanOutline" @click="deleteTask(getAllTasks.indexOf(task))"></v-icon>
+
+                </v-list-item-action>
+
+
+
+
+
             </v-list-item>
           </v-list>
-          <!-- <v-list :items="filteredTaskNames()" bg-color="red" class="w-full m-0">
+          <!-- <v-list :items="filteredTasks()" bg-color="red" class="w-full m-0">
           </v-list> -->
         </v-row>
 
@@ -196,9 +200,17 @@ console.log(filteredTaskNames()); // for check
 
 
 
-        <v-row>
+
+
+
+
+
+
+
+
+        <!-- <v-row>
           <v-list class="w-full h-[500px] m-0">
-            <span v-if="getAllTasks.length === 0">0 task.. Add a task!</span>
+            <span v-if="getAllTasks.length < 1">0 task.. Add a task!</span>
             <span v-else>Your Tasks</span>
               <v-list-item v-for="(task) in getAllTasks" class="hover:bg-red-100 group">
                 <v-list-item-action>
@@ -227,7 +239,17 @@ console.log(filteredTaskNames()); // for check
             </template>
           </v-text-field>
 
-        </v-row>
+        </v-row> -->
+
+
+
+
+
+
+
+
+
+
 
 
 
