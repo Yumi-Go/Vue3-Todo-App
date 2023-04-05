@@ -196,18 +196,6 @@ const filteredTasks = () => {
           </v-list> -->
         </v-row>
 
-
-
-
-
-
-
-
-
-
-
-
-
         <!-- <v-row>
           <v-list class="w-full h-[500px] m-0">
             <span v-if="getAllTasks.length < 1">0 task.. Add a task!</span>
@@ -225,7 +213,8 @@ const filteredTasks = () => {
                 </v-list-item-action>
               </v-list-item>
           </v-list>
-        </v-row>
+        </v-row> -->
+
         <v-row>
           <v-text-field
           v-model="newTask"
@@ -239,7 +228,7 @@ const filteredTasks = () => {
             </template>
           </v-text-field>
 
-        </v-row> -->
+        </v-row>
 
 
 
