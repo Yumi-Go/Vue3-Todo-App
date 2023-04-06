@@ -38,7 +38,7 @@ function bookmarkedButtonToggle() {
   <div class="flex justify-between flex-row w-[600px] bg-red-200 px-5 py-2">
     <div class="todo w-[109px] h-[39px] bg-red-200" >TO-DO</div>
     <div class="flex flex-row">
-      <div class="btn_all" :class="{ btn_clicked: isBookmarked }">
+      <div class="btn_all" :class="{ btn_clicked: isAllTasks }">
         <input type="radio" id="btn_allTasks" name="tabBtn" checked v-model="isAllTasks" class="hidden"/>
         <label for="btn_allTasks"><router-link :to="{ name: 'Home' }">{{ isAllTasks }}</router-link></label>
       </div>
