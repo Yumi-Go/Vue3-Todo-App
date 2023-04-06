@@ -165,30 +165,30 @@ const filteredTasks = () => {
 
         <v-row>
           <v-list bg-color="pink" class="w-full h-[500px] m-0 text-white">
-            <span v-if="getAllTasks.length < 1">0 task.. Add a task!</span>
-            <span v-else>Your Tasks</span>
+            <span v-if="getAllTasks.length < 1" class="p-5 font-bold">0 task.. Add a task!</span>
+            <span v-else class="p-5 font-bold">Your Tasks</span>
             <v-list-item
             v-for="(task, i) in filteredTasks()"
             :key="i"
             class="hover:bg-red-300 hover:text-black group"
             >
 
-            <v-list-item-action>
-              <v-checkbox v-model="task.completed">
-                <template #label v-if="task.completed"><span class="line-through font-bold"> {{ task.name }}</span></template>
-                <template #label v-else><span class="font-bold">{{ task.name }}</span></template>
-              </v-checkbox>
-              <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="unBookmarkTask(task.id)" />
-              <v-icon v-else :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)" />
-              <v-icon class="invisible group-hover:visible" :icon="mdiTrashCanOutline" @click="deleteTask(getAllTasks.indexOf(task))"></v-icon>
+              <v-list-item-action>
+                <v-checkbox v-model="task.completed">
+                  <template #label v-if="task.completed"><span class="line-through font-bold"> {{ task.name }}</span></template>
+                  <template #label v-else><span class="font-bold">{{ task.name }}</span></template>
+                </v-checkbox>
+                <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="unBookmarkTask(task.id)" />
+                <v-icon v-else :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)" />
+                <v-icon class="invisible group-hover:visible" :icon="mdiTrashCanOutline" @click="deleteTask(getAllTasks.indexOf(task))"></v-icon>
 
-            </v-list-item-action>
-
-
-
+              </v-list-item-action>
 
 
             </v-list-item>
+            <v-divider></v-divider>
+
+
           </v-list>
           <!-- <v-list :items="filteredTasks()" bg-color="red" class="w-full m-0">
           </v-list> -->
