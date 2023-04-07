@@ -14,17 +14,22 @@ let isBookmarked = ref(false);
 console.log("isBookmarked: ", isBookmarked.value);
 
 function allTasksButtonToggle() {
-  isAllTasks.value = !isAllTasks.value;
+  isAllTasks.value = true;
+  isBookmarked.value = false;
+
+
   console.log('*** allTasksButtonToggle');
-  console.log('changed isAllTasks: ', isAllTasks);
-  console.log('changed isBookmarked: ', isBookmarked);
+  console.log('changed isAllTasks: ', isAllTasks.value);
+  console.log('changed isBookmarked: ', isBookmarked.value);
 }
 
 function bookmarkedButtonToggle() {
-  isBookmarked.value = !isBookmarked.value;
+  isAllTasks.value = false;
+  isBookmarked.value = true;
+
   console.log('*** allBookmarkedButtonToggle');
-  console.log('changed isAllTasks: ', isAllTasks);
-  console.log('changed isBookmarked: ', isBookmarked);
+  console.log('changed isAllTasks: ', isAllTasks.value);
+  console.log('changed isBookmarked: ', isBookmarked.value);
 }
 
 // radio button
@@ -34,70 +39,29 @@ function bookmarkedButtonToggle() {
 
 <div id="outerWrapper" class="flex flex-col justify-center items-center w-full h-full">
 
-<div class="flex flex-col">
-  <div class="flex justify-between flex-row w-[600px] bg-red-200 px-5 py-2">
-    <div class="todo w-[109px] h-[39px] bg-red-200" >TO-DO</div>
-    <div class="flex flex-row">
-      <div class="btn_all" :class="{ btn_clicked: isAllTasks }">
-        <input type="radio" id="btn_allTasks" name="tabBtn" checked v-model="isAllTasks" class="hidden"/>
-        <label for="btn_allTasks"><router-link :to="{ name: 'Home' }">{{ isAllTasks }}</router-link></label>
-      </div>
-      <div class="btn_bookmarked" :class="{ btn_clicked: isBookmarked }">
-        <input type="radio" id="btn_bookmarked" name="tabBtn" v-model="isBookmarked" class="hidden"/>
-        <label for="btn_bookmarked"><router-link :to="{ name: 'Bookmarked' }">{{ isBookmarked }}</router-link></label>
-      </div>
-    </div>
-  </div>
-  <div class="w-full bg-red-200">
-    <router-view />
-  </div>
-
-
-</div>
-
-<!-- <div class="flex justify-between w-[600px] bg-red-200 px-5 py-2">
-  <div class="todo w-[109px] h-[39px] bg-red-200" >TO-DO</div>
-    <div>
-      <button :class="isAllTasks ? 'button_on' : 'button_off'" @click="allTasksButtonToggle()">
-        <router-link :to="{ name: 'Home' }">{{ isAllTasks }}</router-link>
-      </button>
-      <button :class="isBookmarked ? 'button_on' : 'button_off'" @click="bookmarkedButtonToggle()">
-        <router-link :to="{ name: 'Bookmarked' }">{{ isBookmarked }}</router-link>
-      </button>
-    </div>
-</div>
-<div class="w-[600px] bg-red-200">
-  <router-view />
-</div> -->
-
-</div>
-
-
-
-
-
-
-
-<!-- <div id="outerWrapper" class="flex flex-col justify-center items-center w-full h-full">
-
-    <div class="flex justify-between w-[600px] bg-red-200 px-5 py-2">
+  <div class="flex flex-col">
+    <div class="flex justify-between flex-row w-[600px] bg-red-200 px-5 py-2">
       <div class="todo w-[109px] h-[39px] bg-red-200" >TO-DO</div>
-        <div class="">
-          <button class="button_on">
-            <router-link :to="{ name: 'Home' }">All Tasks</router-link>
-          </button>
-          <button class="button_off">
-            <router-link :to="{ name: 'Bookmarked' }">Bookmarked</router-link>
-          </button>
-        </div>
+      <div class="flex flex-row">
+        <router-link :to="{ name: 'Home' }">
+          <div class="btn_all justify-center items-center" :class="{ btn_clicked: isAllTasks }">
+            <input type="radio" id="btn_allTasks" name="tabBtn" v-model="isAllTasks" class="" @click="allTasksButtonToggle"/>
+            <label for="btn_allTasks">{{ isAllTasks }}</label>
+          </div>
+        </router-link>
+        <router-link :to="{ name: 'Bookmarked' }">
+          <div class="btn_bookmarked" :class="{ btn_clicked: isBookmarked }">
+            <input type="radio" id="btn_bookmarked" name="tabBtn" v-model="isBookmarked" class="" @click="bookmarkedButtonToggle"/>
+            <label for="btn_bookmarked">{{ isBookmarked }}</label>
+          </div>
+      </router-link>
+      </div>
     </div>
-    <div class="w-[600px] bg-red-200">
+    <div class="w-full bg-red-200">
       <router-view />
     </div>
-
-</div> -->
-
-
+  </div>
+</div>
 
 
 
@@ -139,7 +103,10 @@ color: #000000;
 }
 
 .btn_clicked {
-  background: #E8DEF8;
+  font-weight: bold;
+  background: #FFE0B2;
+  padding: 0px;
+
 
 }
 

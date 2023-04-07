@@ -184,9 +184,9 @@ const filteredTasks = () => {
 
               </v-list-item-action>
 
+              <v-divider thickness="3px"></v-divider>
 
             </v-list-item>
-            <v-divider></v-divider>
 
 
           </v-list>
@@ -218,7 +218,7 @@ const filteredTasks = () => {
           v-model="newTask"
           label="Add a new Task"
           variant="solo"
-          color="#B71C1C"
+          color="brown"
           bg-color="white"
           class="mt-5 mx-5"
           @keypress.enter.preventDefault="addTask()"
