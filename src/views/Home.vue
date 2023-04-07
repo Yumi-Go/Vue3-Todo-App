@@ -13,16 +13,12 @@ const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializer
 const counter = () => {
   let result = 1;
   if (getAllTasks.value.length > 0) {
-    console.log(getAllTasks.value[getAllTasks.value.length - 1].id);
     result = getAllTasks.value[getAllTasks.value.length - 1].id + 1;
   }
   return result;
 }
 
-console.log(getAllTasks.value);
-console.log(typeof getAllTasks.value);
-
-const addTask = () => {
+function addTask() {
   if (newTask.value.trim().length > 0) {
     storeAllTasks.value.push({
       id: counter(),
@@ -39,7 +35,7 @@ function bookmarkedTasks() {
   return bookmarkedObj.map(obj => obj.id);
 }
 
-const bookmarkTask = (taskID) => {
+function bookmarkTask(taskID) {
   if (getAllTasks.value.length > 0) {
     getAllTasks.value.map(obj => {
       if (obj.id === taskID && !bookmarkedTasks().includes(taskID)) {
@@ -49,7 +45,7 @@ const bookmarkTask = (taskID) => {
   }
 }
 
-const unBookmarkTask = (taskID) => {
+function unBookmarkTask(taskID) {
   if (getAllTasks.value.length > 0) {
     getAllTasks.value.map(obj => {
       if (obj.id === taskID && bookmarkedTasks().includes(taskID)) {
@@ -60,13 +56,13 @@ const unBookmarkTask = (taskID) => {
   }
 }
 
-const deleteTask = (index) => {
+function deleteTask(index) {
   if (getAllTasks.value.length > 0) {
     getAllTasks.value.splice(index, 1);
   }
 }
 
-const filteredTasks = () => {
+function filteredTasks() {
   let input = search.value.toLowerCase();
 	return getAllTasks.value.filter((obj) => {
     return obj.name.toLowerCase().match(input);
@@ -134,24 +130,7 @@ const filteredTasks = () => {
         </template>
       </v-text-field>
     </v-row>
-
-
-
-
-
-
-
-
-
-
-
-
-
   </v-container>
-
-
-
-
 </template>
 
 <style scoped>
