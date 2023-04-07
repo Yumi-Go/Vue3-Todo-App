@@ -72,7 +72,7 @@ function filteredTasks() {
 </script>
 
 <template>
-  <v-container fluid class="px-5">
+  <v-container fluid class="px-5 h-[660px]">
     <v-row>
       <v-text-field
         v-model="search"

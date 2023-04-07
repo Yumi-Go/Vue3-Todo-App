@@ -25,9 +25,9 @@ getBookmarkedTasks();
 </script>
 
 <template>
-<v-container fluid class="px-5">
+<v-container fluid class="px-5 h-[660px]">
     <v-row>
-        <v-list bg-color="pink" class="w-full h-[500px] m-0 text-white">
+        <v-list bg-color="pink" class="w-full h-[640px] m-0 text-white">
             <v-list-item v-if="bookmarkedTasks.length < 1" class="font-bold">Bookmarked tasks list is empty!!</v-list-item>        
             <v-list-item v-else class="font-bold">
                 <v-icon :icon="mdiBookmarkMultiple" color="#FFF9C4"/>
