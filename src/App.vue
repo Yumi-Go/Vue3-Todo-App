@@ -1,38 +1,20 @@
 <script setup>
 import { ref } from "vue";
-// let isActive = ref(false);
-
-// const activeStatus = () => {
-//   isActive = !isActive;
-//   console.log(isActive);
-// }
 
 const isAllTasks = ref(true);
-console.log("isAllTasks: ", isAllTasks.value);
-
 const isBookmarked = ref(false);
-console.log("isBookmarked: ", isBookmarked.value);
 
 function allTasksButtonToggle() {
   isAllTasks.value = true;
   isBookmarked.value = false;
 
-
-  console.log('*** allTasksButtonToggle');
-  console.log('changed isAllTasks: ', isAllTasks.value);
-  console.log('changed isBookmarked: ', isBookmarked.value);
 }
 
 function bookmarkedButtonToggle() {
   isAllTasks.value = false;
   isBookmarked.value = true;
-
-  console.log('*** allBookmarkedButtonToggle');
-  console.log('changed isAllTasks: ', isAllTasks.value);
-  console.log('changed isBookmarked: ', isBookmarked.value);
 }
 
-// radio button
 </script>
 
 <template>
@@ -41,18 +23,18 @@ function bookmarkedButtonToggle() {
 
   <div class="flex flex-col">
     <div class="flex justify-between flex-row w-[600px] bg-red-200 px-5 py-2">
-      <div class="todo w-[109px] h-[39px] bg-red-200" >TO-DO</div>
+      <div class="w-[109px] h-[39px] bg-red-200 text-red-700 text-left text-[32px] font-[700] leading-[39px] tracking-normal" >TO-DO</div>
       <div class="flex flex-row">
         <router-link :to="{ name: 'Home' }">
-          <div class="btn_all justify-center items-center" :class="{ btn_clicked: isAllTasks }" @click="allTasksButtonToggle">
+          <div class="btn_all flex justify-center items-center" :class="{ btn_clicked: isAllTasks }" @click="allTasksButtonToggle">
             <input type="radio" id="btn_allTasks" name="tabBtn" v-model="isAllTasks" class="hidden"/>
-            <label for="btn_allTasks">All Tasks</label>
+            <label for="btn_allTasks" class="text-center"><router-link :to="{ name: 'Home' }">All Tasks</router-link></label>
           </div>
         </router-link>
         <router-link :to="{ name: 'Bookmarked' }">
-          <div class="btn_bookmarked" :class="{ btn_clicked: isBookmarked }" @click="bookmarkedButtonToggle">
+          <div class="btn_bookmarked flex justify-center items-center" :class="{ btn_clicked: isBookmarked }" @click="bookmarkedButtonToggle">
             <input type="radio" id="btn_bookmarked" name="tabBtn" v-model="isBookmarked" class="hidden"/>
-            <label for="btn_bookmarked">Bookmarked</label>
+            <label for="btn_bookmarked" class="text-center">Bookmarked</label>
           </div>
         </router-link>
       </div>
@@ -71,19 +53,6 @@ function bookmarkedButtonToggle() {
 
 
 <style>
-
-.todo {
-border-radius: nullpx;
-font-family: Inter;
-font-size: 32px;
-font-weight: 700;
-line-height: 39px;
-letter-spacing: 0em;
-text-align: left;
-
-color: #000000;
-
-}
 
 .btn_all {
     padding: 0px;
@@ -106,6 +75,8 @@ color: #000000;
   font-weight: bold;
   background: #FFE0B2;
   padding: 0px;
+  color: rgb(185 28 28);
+
 
 
 }
