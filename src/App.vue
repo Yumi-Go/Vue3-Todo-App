@@ -7,7 +7,6 @@ const isBookmarked = ref(false);
 function allTasksButtonToggle() {
   isAllTasks.value = true;
   isBookmarked.value = false;
-
 }
 
 function bookmarkedButtonToggle() {

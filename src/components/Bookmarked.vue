@@ -37,7 +37,7 @@ getBookmarkedTasks();
 
 <template>
 
-<v-container fluid>
+<v-container fluid class="px-5">
 
 <v-row>
     <v-list bg-color="pink" class="w-full h-[500px] m-0 text-white">
