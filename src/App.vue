@@ -7,10 +7,10 @@ import { ref } from "vue";
 //   console.log(isActive);
 // }
 
-let isAllTasks = ref(true);
+const isAllTasks = ref(true);
 console.log("isAllTasks: ", isAllTasks.value);
 
-let isBookmarked = ref(false);
+const isBookmarked = ref(false);
 console.log("isBookmarked: ", isBookmarked.value);
 
 function allTasksButtonToggle() {
@@ -44,17 +44,17 @@ function bookmarkedButtonToggle() {
       <div class="todo w-[109px] h-[39px] bg-red-200" >TO-DO</div>
       <div class="flex flex-row">
         <router-link :to="{ name: 'Home' }">
-          <div class="btn_all justify-center items-center" :class="{ btn_clicked: isAllTasks }">
-            <input type="radio" id="btn_allTasks" name="tabBtn" v-model="isAllTasks" class="" @click="allTasksButtonToggle"/>
-            <label for="btn_allTasks">{{ isAllTasks }}</label>
+          <div class="btn_all justify-center items-center" :class="{ btn_clicked: isAllTasks }" @click="allTasksButtonToggle">
+            <input type="radio" id="btn_allTasks" name="tabBtn" v-model="isAllTasks" class="hidden"/>
+            <label for="btn_allTasks">All Tasks</label>
           </div>
         </router-link>
         <router-link :to="{ name: 'Bookmarked' }">
-          <div class="btn_bookmarked" :class="{ btn_clicked: isBookmarked }">
-            <input type="radio" id="btn_bookmarked" name="tabBtn" v-model="isBookmarked" class="" @click="bookmarkedButtonToggle"/>
-            <label for="btn_bookmarked">{{ isBookmarked }}</label>
+          <div class="btn_bookmarked" :class="{ btn_clicked: isBookmarked }" @click="bookmarkedButtonToggle">
+            <input type="radio" id="btn_bookmarked" name="tabBtn" v-model="isBookmarked" class="hidden"/>
+            <label for="btn_bookmarked">Bookmarked</label>
           </div>
-      </router-link>
+        </router-link>
       </div>
     </div>
     <div class="w-full bg-red-200">
