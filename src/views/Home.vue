@@ -165,11 +165,10 @@ const filteredTasks = () => {
 
         <v-row>
           <v-list bg-color="pink" class="w-full h-[500px] m-0 text-white">
-            <span v-if="getAllTasks.length < 1" class="p-5 font-bold">0 task.. Add a task!</span>
-            <span v-else class="p-5 font-bold">Your Tasks</span>
+            <v-list-item v-if="getAllTasks.length < 1" class="p-5 font-bold">0 task.. Add a task!</v-list-item>
+            <v-list-item v-else class="p-5 font-bold">Your Tasks</v-list-item>
             <v-list-item
-            v-for="(task, i) in filteredTasks()"
-            :key="i"
+            v-for="task in filteredTasks()"
             class="hover:bg-red-300 hover:text-black group"
             >
 
