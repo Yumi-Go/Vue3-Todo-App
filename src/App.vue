@@ -19,7 +19,7 @@ function bookmarkedButtonToggle() {
 <template>
 <div id="outerWrapper" class="flex flex-col justify-center items-center w-full h-full">
   <div class="flex flex-col mt-10">
-    <div class="flex justify-between flex-row w-[600px] bg-red-200 px-5 py-2">
+    <div class="flex justify-between flex-row w-[600px] bg-red-200 px-5 pt-5 pb-2">
       <div class="w-[109px] h-[39px] bg-red-200 text-red-700 text-left text-[32px] font-[700] leading-[39px] tracking-normal" >TO-DO</div>
       <div class="flex flex-row">
         <router-link :to="{ name: 'Home' }">
