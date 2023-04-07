@@ -73,7 +73,7 @@ function bookmarkedButtonToggle() {
 
 .btn_clicked {
   font-weight: bold;
-  background: #FFE0B2;
+  background: #FFF3E0;
   padding: 0px;
   color: rgb(185 28 28);
 

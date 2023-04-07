@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useLocalStorage, StorageSerializers } from '@vueuse/core';
 import SvgIcon from '@jamescoyle/vue-icon'
-import { mdiBookmarkOutline, mdiBookmark, mdiPlus, mdiTrashCanOutline, mdiMagnify } from '@mdi/js'
+import { mdiCheckboxMarkedCirclePlusOutline, mdiBookmarkOutline, mdiBookmark, mdiPlus, mdiTrashCanOutline, mdiMagnify } from '@mdi/js'
 
 const newTask = ref('');
 const search = ref('');
@@ -166,7 +166,10 @@ const filteredTasks = () => {
         <v-row>
           <v-list bg-color="pink" class="w-full h-[500px] m-0 text-white">
             <v-list-item v-if="getAllTasks.length < 1" class="p-5 font-bold">0 task.. Add a task!</v-list-item>
-            <v-list-item v-else class="p-5 font-bold">Your Tasks</v-list-item>
+            <v-list-item v-else class="font-bold">
+              <v-icon :icon="mdiCheckboxMarkedCirclePlusOutline" color="#FFF9C4"/>
+              <span class="text-[#FFF9C4] pl-2">Your Tasks</span>
+            </v-list-item>
             <v-list-item
             v-for="task in filteredTasks()"
             class="hover:bg-red-300 hover:text-black group"
