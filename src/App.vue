@@ -5,7 +5,7 @@ import { useLocalStorage, StorageSerializers } from '@vueuse/core';
 const isAllTasks = ref(true);
 const isBookmarked = ref(false);
 
-const storeTabStatus = useLocalStorage('tab', {allTab: isAllTasks.value, bookmarkedTab: isBookmarked.value});
+const storeTabStatus = useLocalStorage('tab', { allTab: isAllTasks.value, bookmarkedTab: isBookmarked.value });
 const getTabStatus = useLocalStorage("tab", null, { serializer: StorageSerializers.object });
 
 function saveTabStatus() {
@@ -13,7 +13,23 @@ function saveTabStatus() {
   storeTabStatus.value.bookmarkedTab = isBookmarked.value;
 }
 
+function initializeTabStatus() {
+  if (window.location.href.match('/bookmarked')) {
+    console.log("bookmarked tab");
+    isAllTasks.value = false;
+    isBookmarked.value = true;
+    console.log(isAllTasks.value, isBookmarked.value);
+  } else {
+    console.log("not bookmarked tab");
+    isAllTasks.value = true;
+    isBookmarked.value = false;
+    console.log(isAllTasks.value, isBookmarked.value);
 
+  }
+  saveTabStatus();
+}
+
+initializeTabStatus();
 
 function allTasksButtonToggle() {
   isAllTasks.value = true;
