@@ -15,16 +15,11 @@ function saveTabStatus() {
 
 function initializeTabStatus() {
   if (window.location.href.match('/bookmarked')) {
-    console.log("bookmarked tab");
     isAllTasks.value = false;
     isBookmarked.value = true;
-    console.log(isAllTasks.value, isBookmarked.value);
   } else {
-    console.log("not bookmarked tab");
     isAllTasks.value = true;
     isBookmarked.value = false;
-    console.log(isAllTasks.value, isBookmarked.value);
-
   }
   saveTabStatus();
 }
