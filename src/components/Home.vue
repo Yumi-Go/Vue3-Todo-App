@@ -3,6 +3,13 @@ import { ref } from "vue";
 import { useLocalStorage, StorageSerializers } from '@vueuse/core';
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiCheckboxMarkedCirclePlusOutline, mdiBookmarkOutline, mdiBookmark, mdiPlus, mdiTrashCanOutline, mdiMagnify } from '@mdi/js'
+import Bookmarked from "../components/Bookmarked.vue"
+
+const getTabStatus = useLocalStorage("tab", null, { serializer: StorageSerializers.object });
+
+function getCurrentTab() {
+  return Object.keys(getTabStatus.value).find((tab) => getTabStatus.value[tab]);
+}
 
 const newTask = ref('');
 const search = ref('');
@@ -72,7 +79,13 @@ function filteredTasks() {
 </script>
 
 <template>
-  <v-container fluid class="px-5 h-[660px]">
+
+<Bookmarked v-if="getCurrentTab() === 'bookmarkedTab'"
+@unBookmarkTask="unBookmarkTask"
+@deleteTask="deleteTask"
+/>
+
+<v-container v-else fluid class="px-5 h-[660px]">
     <v-row>
       <v-text-field
         v-model="search"
@@ -101,7 +114,6 @@ function filteredTasks() {
         v-for="task in filteredTasks()"
         class="hover:bg-red-300 hover:text-black group"
         >
-
           <v-list-item-action>
             <v-checkbox v-model="task.completed">
               <template #label v-if="task.completed"><span class="line-through font-bold"> {{ task.name }}</span></template>
@@ -130,7 +142,8 @@ function filteredTasks() {
         </template>
       </v-text-field>
     </v-row>
-  </v-container>
+    </v-container>
+
 </template>
 
 <style scoped>
@@ -138,6 +151,21 @@ function filteredTasks() {
 
 
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

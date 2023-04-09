@@ -1,26 +1,14 @@
 <script setup>
-import { ref } from 'vue'
 import { useLocalStorage, StorageSerializers } from '@vueuse/core';
-import { mdiBookmarkMultiple } from '@mdi/js'
+import { mdiBookmarkMultiple, mdiCheckBold, mdiBookmark, mdiBookmarkOutline, mdiTrashCanOutline } from '@mdi/js'
 
-const allTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
-
-const bookmarkedTasks = ref([]);
+const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
 
 function getBookmarkedTasks() {
-    const result = [];
-    if (Object.keys(allTasks.value).length > 0) {
-        console.log(Object.keys(allTasks.value).length);
-        allTasks.value.map(obj => {
-            if (obj.bookmarked == true) {
-                bookmarkedTasks.value.push(obj);
-            }
-        });
-    }
-    return result;
+    return getAllTasks.value.filter((obj) => obj.bookmarked);
 }
 
-getBookmarkedTasks();
+const emit = defineEmits(['unBookmarkTask', 'deleteTask']);
 
 </script>
 
@@ -28,18 +16,28 @@ getBookmarkedTasks();
 <v-container fluid class="px-5 h-[660px]">
     <v-row>
         <v-list bg-color="pink" class="w-full h-[640px] m-0 text-white">
-            <v-list-item v-if="bookmarkedTasks.length < 1" class="font-bold">Bookmarked tasks list is empty!!</v-list-item>        
+            <v-list-item v-if="getBookmarkedTasks().length < 1" class="font-bold">Bookmarked tasks list is empty!!</v-list-item>        
             <v-list-item v-else class="font-bold">
                 <v-icon :icon="mdiBookmarkMultiple" color="#FFF9C4"/>
                 <span class="text-[#FFF9C4] pl-2">Your Bookmarked Tasks</span>
             </v-list-item>
             <v-list-item
-            v-for="(task, index) in bookmarkedTasks"
-            class="hover:bg-red-300 hover:text-black group font-bold">
-                {{ index + 1 }}: {{ task.name }}
+            v-for="task in getBookmarkedTasks()"
+            class="hover:bg-red-300 hover:text-black font-bold pl-5 group">
+            <div class="flex justify-between">
+                <div>
+                    <v-icon :icon="mdiCheckBold" class="mr-2"/>
+                    {{ task.name }}
+                </div>
+                <div>
+                    <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="$emit('unBookmarkTask', task.id)"/>
+                    <v-icon class="invisible group-hover:visible" :icon="mdiTrashCanOutline" @click="$emit('deleteTask', getAllTasks.indexOf(task))"/>
+                </div>
+            </div>
+
                 <v-divider thickness="3px"></v-divider>
             </v-list-item>
-    </v-list>
+        </v-list>
     </v-row>
 </v-container>
 </template>
