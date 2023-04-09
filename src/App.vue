@@ -38,10 +38,6 @@ function bookmarkedButtonToggle() {
   saveTabStatus();
 }
 
-function getCurrentTab() {
-  return Object.keys(getTabStatus.value).find((tab) => getTabStatus.value[tab]);
-}
-
 </script>
 
 <template>
@@ -53,13 +49,13 @@ function getCurrentTab() {
         <router-link :to="{ name: 'Home' }">
           <div class="btn_all flex justify-center items-center" :class="{ btn_clicked: getTabStatus.allTab }" @click="allTasksButtonToggle">
             <input type="radio" id="btn_allTasks" name="tabBtn" v-model="isAllTasks" class="hidden"/>
-            <label for="btn_allTasks" class="text-center">All Tasks</label>
+            <label for="btn_allTasks" class="text-center cursor-pointer">All Tasks</label>
           </div>
         </router-link>
         <router-link :to="{ name: 'Home' }">
           <div class="btn_bookmarked flex justify-center items-center" :class="{ btn_clicked: getTabStatus.bookmarkedTab }" @click="bookmarkedButtonToggle">
             <input type="radio" id="btn_bookmarked" name="tabBtn" v-model="isBookmarked" class="hidden"/>
-            <label for="btn_bookmarked" class="text-center">Bookmarked</label>
+            <label for="btn_bookmarked" class="text-center cursor-pointer">Bookmarked</label>
           </div>
         </router-link>
       </div>
