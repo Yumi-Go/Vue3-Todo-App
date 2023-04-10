@@ -31,10 +31,13 @@ const emit = defineEmits(['unBookmarkTask', 'deleteTask']);
                 </div>
                 <div>
                     <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="$emit('unBookmarkTask', task.id)"/>
-                    <v-icon class="invisible group-hover:visible" :icon="mdiTrashCanOutline" @click="$emit('deleteTask', getAllTasks.indexOf(task))"/>
+                    <v-icon
+                    class="invisible group-hover:visible"
+                    :icon="mdiTrashCanOutline"
+                    @click="$emit('deleteTask', getAllTasks.indexOf(task))"
+                    />
                 </div>
             </div>
-
                 <v-divider thickness="3px"></v-divider>
             </v-list-item>
         </v-list>
