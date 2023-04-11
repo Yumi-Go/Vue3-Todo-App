@@ -1,6 +1,6 @@
 <script setup>
 import { useLocalStorage, StorageSerializers } from '@vueuse/core';
-import { mdiBookmarkMultiple, mdiCheckBold, mdiBookmark, mdiBookmarkOutline, mdiTrashCanOutline } from '@mdi/js'
+import { mdiAlertCircleOutline, mdiBookmarkMultiple, mdiCheckBold, mdiBookmark, mdiBookmarkOutline, mdiTrashCanOutline } from '@mdi/js'
 
 const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
 
@@ -16,7 +16,16 @@ const emit = defineEmits(['unBookmarkTask', 'deleteTask']);
 <v-container fluid class="px-5 h-[660px]">
     <v-row>
         <v-list bg-color="pink" class="w-full h-[640px] m-0 text-white">
-            <v-list-item v-if="getBookmarkedTasks().length < 1" class="font-bold">Bookmarked tasks list is empty!!</v-list-item>        
+            <v-list-item v-if="getBookmarkedTasks().length < 1" class="font-bold">
+                <div class="flex flex-col justify-center items-center h-[500px]">
+                    <div>
+                        <v-icon :icon="mdiAlertCircleOutline" color="#E0E0E0" size="100" class="opacity-50"/>
+                    </div>
+                    <div>
+                        <span class="text-[#E0E0E0] opacity-80">Bookmarked Task Does Not Exist</span>
+                    </div>
+                </div>
+            </v-list-item>        
             <v-list-item v-else class="font-bold">
                 <v-icon :icon="mdiBookmarkMultiple" color="#FFF9C4"/>
                 <span class="text-[#FFF9C4] pl-2">Your Bookmarked Tasks</span>

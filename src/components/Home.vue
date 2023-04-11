@@ -2,7 +2,7 @@
 import { ref } from "vue";
 import { useLocalStorage, StorageSerializers } from '@vueuse/core';
 import SvgIcon from '@jamescoyle/vue-icon'
-import { mdiCheckboxMarkedCirclePlusOutline, mdiBookmarkOutline, mdiBookmark, mdiPlus, mdiTrashCanOutline, mdiMagnify } from '@mdi/js'
+import { mdiAlertCircleOutline, mdiCheckboxMarkedCirclePlusOutline, mdiBookmarkOutline, mdiBookmark, mdiPlus, mdiTrashCanOutline, mdiMagnify } from '@mdi/js'
 import Bookmarked from "../components/Bookmarked.vue"
 
 const getTabStatus = useLocalStorage("tab", null, { serializer: StorageSerializers.object });
@@ -101,7 +101,16 @@ function filteredTasks() {
 
     <v-row>
         <v-list bg-color="pink" class="w-full h-[500px] m-0 text-white">
-            <v-list-item v-if="getAllTasks.length < 1" class="p-5 font-bold">0 task.. Add a task!</v-list-item>
+            <v-list-item v-if="getAllTasks.length < 1" class="p-5 font-bold">
+                <div class="flex flex-col justify-center items-center h-[500px]">
+                    <div>
+                        <v-icon :icon="mdiAlertCircleOutline" color="#E0E0E0" size="100" class="opacity-50"/>
+                    </div>
+                    <div>
+                        <span class="text-[#E0E0E0] opacity-80">Task Does Not Exist</span>
+                    </div>
+                </div>
+            </v-list-item>
             <v-list-item v-else class="font-bold">
                 <v-icon :icon="mdiCheckboxMarkedCirclePlusOutline" color="#FFF9C4"/>
                 <span class="text-[#FFF9C4] pl-2">Your Tasks</span>
@@ -149,33 +158,4 @@ function filteredTasks() {
 
 <style scoped>
 
-
-
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
