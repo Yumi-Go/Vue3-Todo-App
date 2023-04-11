@@ -17,7 +17,7 @@ const search = ref('');
 const storeAllTasks = useLocalStorage('all', []);
 const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
 
-const counter = () => {
+function counter() {
     let result = 1;
     if (getAllTasks.value.length > 0) {
         result = getAllTasks.value[getAllTasks.value.length - 1].id + 1;
@@ -142,6 +142,7 @@ function filteredTasks() {
             </template>
         </v-text-field>
     </v-row>
+
 </v-container>
 
 </template>
