@@ -1,15 +1,10 @@
 <script setup>
-import { ref } from "vue";
-import { useLocalStorage, StorageSerializers } from '@vueuse/core';
+import { ref } from "vue"
+import { useLocalStorage, StorageSerializers } from '@vueuse/core'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiAlertCircleOutline, mdiCheckboxMarkedCirclePlusOutline, mdiBookmarkOutline, mdiBookmark, mdiPlus, mdiTrashCanOutline, mdiMagnify } from '@mdi/js'
-import Bookmarked from "../components/Bookmarked.vue"
-
-const getTabStatus = useLocalStorage("tab", null, { serializer: StorageSerializers.object });
-
-function getCurrentTab() {
-    return Object.keys(getTabStatus.value).find((tab) => getTabStatus.value[tab]);
-}
+import { useBookmark } from '../composables/bookmark'
+import { useDelete } from '../composables/delete'
 
 const newTask = ref('');
 const search = ref('');
@@ -37,33 +32,8 @@ function addTask() {
     newTask.value = '';
 }
 
-function bookmarkedTasks() {
-    const bookmarkedObj = getAllTasks.value.filter((obj) => obj.bookmarked);
-    return bookmarkedObj.map(obj => obj.id);
-}
-
-function bookmarkTask(taskID) {
-    Object.values(getAllTasks.value).forEach(task => {
-        if (task.id === taskID && !bookmarkedTasks().includes(taskID)) {
-            task.bookmarked = true;
-        }
-    });
-}
-
-function unBookmarkTask(taskID) {
-    Object.values(getAllTasks.value).forEach(task => {
-        if (task.id === taskID && bookmarkedTasks().includes(taskID)) {
-            task.bookmarked = false;
-            bookmarkedTasks().splice(bookmarkedTasks().indexOf(taskID), 1);
-        }
-    });
-}
-
-function deleteTask(index) {
-  if (getAllTasks.value.length > 0) {
-    getAllTasks.value.splice(index, 1);
-  }
-}
+const { bookmarkTask, unBookmarkTask } = useBookmark();
+const { deleteTask } = useDelete();
 
 function filteredTasks() {
   let input = search.value.toLowerCase();
@@ -76,12 +46,7 @@ function filteredTasks() {
 
 <template>
 
-<Bookmarked v-if="getCurrentTab() === 'bookmarkedTab'"
-@unBookmarkTask="unBookmarkTask"
-@deleteTask="deleteTask"
-/>
-
-<v-container v-else fluid class="px-5 h-[660px]">
+<v-container fluid class="px-5 h-[660px]">
     <v-row>
       <v-text-field
         v-model="search"

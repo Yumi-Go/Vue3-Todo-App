@@ -52,7 +52,7 @@ function bookmarkedButtonToggle() {
             <label for="btn_allTasks" class="text-center cursor-pointer">All Tasks</label>
           </div>
         </router-link>
-        <router-link :to="{ name: 'Home' }">
+        <router-link :to="{ name: 'Bookmarked' }">
           <div class="btn_bookmarked flex justify-center items-center" :class="{ btn_clicked: getTabStatus.bookmarkedTab }" @click="bookmarkedButtonToggle">
             <input type="radio" id="btn_bookmarked" name="tabBtn" v-model="isBookmarked" class="hidden"/>
             <label for="btn_bookmarked" class="text-center cursor-pointer">Bookmarked</label>

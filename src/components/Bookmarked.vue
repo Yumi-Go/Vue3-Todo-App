@@ -1,6 +1,8 @@
 <script setup>
 import { useLocalStorage, StorageSerializers } from '@vueuse/core';
 import { mdiAlertCircleOutline, mdiBookmarkMultiple, mdiCheckBold, mdiBookmark, mdiBookmarkOutline, mdiTrashCanOutline } from '@mdi/js'
+import { useBookmark } from '../composables/bookmark'
+import { useDelete } from '../composables/delete'
 
 const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
 
@@ -8,7 +10,8 @@ function getBookmarkedTasks() {
     return getAllTasks.value.filter((obj) => obj.bookmarked);
 }
 
-const emit = defineEmits(['unBookmarkTask', 'deleteTask']);
+const { unBookmarkTask } = useBookmark();
+const { deleteTask } = useDelete();
 
 </script>
 
@@ -39,11 +42,11 @@ const emit = defineEmits(['unBookmarkTask', 'deleteTask']);
                     {{ task.name }}
                 </div>
                 <div>
-                    <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="$emit('unBookmarkTask', task.id)"/>
+                    <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="unBookmarkTask(task.id)"/>
                     <v-icon
                     class="invisible group-hover:visible"
                     :icon="mdiTrashCanOutline"
-                    @click="$emit('deleteTask', getAllTasks.indexOf(task))"
+                    @click="deleteTask(getAllTasks.indexOf(task))"
                     />
                 </div>
             </div>
