@@ -26,15 +26,9 @@ function initializeTabStatus() {
 
 initializeTabStatus();
 
-function allTasksButtonToggle() {
-  isAllTasks.value = true;
-  isBookmarked.value = false;
-  saveTabStatus();
-}
-
-function bookmarkedButtonToggle() {
-  isAllTasks.value = false;
-  isBookmarked.value = true;
+function buttonToggle() {
+  isAllTasks.value = !isAllTasks.value;
+  isBookmarked.value = !isBookmarked.value;
   saveTabStatus();
 }
 
@@ -50,7 +44,7 @@ function bookmarkedButtonToggle() {
           <div
           class="flex justify-center items-center p-0 w-[118px] h-10 border-[1px] border-solid border-[#757575] rounded-l-full"
           :class="{ btn_clicked: getTabStatus.allTab }"
-          @click="allTasksButtonToggle">
+          @click="buttonToggle">
             <input type="radio" id="btn_allTasks" name="tabBtn" v-model="isAllTasks" class="hidden"/>
             <label for="btn_allTasks" class="text-center cursor-pointer">All Tasks</label>
           </div>
@@ -59,7 +53,7 @@ function bookmarkedButtonToggle() {
           <div
           class="flex justify-center items-center p-0 w-[118px] h-10 border-[1px] border-solid border-[#757575] !border-l-0 rounded-r-full"
           :class="{ btn_clicked: getTabStatus.bookmarkedTab }"
-          @click="bookmarkedButtonToggle">
+          @click="buttonToggle">
             <input type="radio" id="btn_bookmarked" name="tabBtn" v-model="isBookmarked" class="hidden"/>
             <label for="btn_bookmarked" class="text-center cursor-pointer">Bookmarked</label>
           </div>

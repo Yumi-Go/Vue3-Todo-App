@@ -37,9 +37,7 @@ const { deleteTask } = useDelete();
 
 function filteredTasks() {
   let input = search.value.toLowerCase();
-	return getAllTasks.value.filter((obj) => {
-    return obj.name.toLowerCase().match(input);
-  });
+	return getAllTasks.value.filter(obj => obj.name.toLowerCase().match(input));
 }
 
 </script>
@@ -111,7 +109,7 @@ function filteredTasks() {
         color="brown"
         bg-color="white"
         class="mt-5 mx-5"
-        @keypress.enter.preventDefault="addTask()"
+        @keypress.enter="addTask()"
         >
             <template #append-inner>
                 <svg-icon type="mdi" :path="mdiPlus" @click.prevent="addTask()"/>
@@ -122,7 +120,3 @@ function filteredTasks() {
 </v-container>
 
 </template>
-
-<style scoped>
-
-</style>
