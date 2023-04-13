@@ -47,13 +47,19 @@ function bookmarkedButtonToggle() {
       <div class="w-[109px] h-[39px] text-red-700 text-left text-[32px] font-[700] leading-[39px] tracking-normal" >TO-DO</div>
       <div class="flex flex-row">
         <router-link :to="{ name: 'Home' }">
-          <div class="btn_all flex justify-center items-center" :class="{ btn_clicked: getTabStatus.allTab }" @click="allTasksButtonToggle">
+          <div
+          class="flex justify-center items-center p-0 w-[118px] h-10 border-[1px] border-solid border-[#757575] rounded-l-full"
+          :class="{ btn_clicked: getTabStatus.allTab }"
+          @click="allTasksButtonToggle">
             <input type="radio" id="btn_allTasks" name="tabBtn" v-model="isAllTasks" class="hidden"/>
             <label for="btn_allTasks" class="text-center cursor-pointer">All Tasks</label>
           </div>
         </router-link>
         <router-link :to="{ name: 'Bookmarked' }">
-          <div class="btn_bookmarked flex justify-center items-center" :class="{ btn_clicked: getTabStatus.bookmarkedTab }" @click="bookmarkedButtonToggle">
+          <div
+          class="flex justify-center items-center p-0 w-[118px] h-10 border-[1px] border-solid border-[#757575] !border-l-0 rounded-r-full"
+          :class="{ btn_clicked: getTabStatus.bookmarkedTab }"
+          @click="bookmarkedButtonToggle">
             <input type="radio" id="btn_bookmarked" name="tabBtn" v-model="isBookmarked" class="hidden"/>
             <label for="btn_bookmarked" class="text-center cursor-pointer">Bookmarked</label>
           </div>
@@ -71,27 +77,9 @@ function bookmarkedButtonToggle() {
 
 <style>
 
-.btn_all {
-    padding: 0px;
-    width: 118px;
-    height: 40px;
-    border: 1px solid #79747E;
-    border-radius: 100px 0px 0px 100px;
-}
-
-.btn_bookmarked {
-    padding: 0px;
-    width: 118px;
-    height: 40px;
-    border: 1px solid #79747E;
-    border-left: 0px;
-    border-radius: 0px 100px 100px 0px;
-}
-
 .btn_clicked {
   font-weight: bold;
   background: #FFF3E0;
-  padding: 0px;
   color: rgb(185 28 28);
 }
 

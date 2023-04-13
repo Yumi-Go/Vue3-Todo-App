@@ -45,7 +45,6 @@ function filteredTasks() {
 </script>
 
 <template>
-
 <v-container fluid class="px-5 h-[660px]">
     <v-row>
       <v-text-field
@@ -95,7 +94,10 @@ function filteredTasks() {
                     </v-checkbox>
                     <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="unBookmarkTask(task.id)"/>
                     <v-icon v-else :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)"/>
-                    <v-icon class="invisible group-hover:visible" :icon="mdiTrashCanOutline" @click="deleteTask(getAllTasks.indexOf(task))"/>
+                    <v-icon
+                    class="invisible group-hover:visible"
+                    :icon="mdiTrashCanOutline"
+                    @click="deleteTask(getAllTasks.indexOf(task))"/>
                 </v-list-item-action>
                 <v-divider thickness="3px"></v-divider>
             </v-list-item>
