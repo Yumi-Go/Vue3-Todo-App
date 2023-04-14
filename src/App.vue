@@ -22,9 +22,15 @@ initializeTabStatus();
 
 <template>
 <div id="outerWrapper" class="flex flex-col justify-center items-center w-full h-full">
-  <div class="flex flex-col mt-10 w-[600px]">
+  <div class="flex flex-col mt-10 w-[600px] bg-red-200">
     <Header/>
+    <Search/>
   </div>
+
+  <div class="w-full">
+
+  </div>
+
 </div>
 </template>
 
