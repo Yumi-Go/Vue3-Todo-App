@@ -1,0 +1,4 @@
+- Move HTML and logic that is being repeated into singular components
+- Work more on understanding the difference between Vue Router pages and how to build simple UI Tabs component.
+- When having lists, build them as components and only send the items
+- Continue implementing best Practices every time a new one is learned.
