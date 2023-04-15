@@ -1,4 +1,6 @@
 <script setup>
+import { ref } from "vue";
+
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiMagnify } from '@mdi/js'
 import { useSearch } from "../composables/search"
@@ -8,7 +10,8 @@ const { search } = useSearch();
 </script>
 
 <template>
-<v-container fluid class="w-full m-0 px-5">
+<v-container fluid class="flex justify-center items-center px-5">
+<v-row>
     <v-text-field
     v-model="search"
     label="Search"
@@ -21,5 +24,6 @@ const { search } = useSearch();
             <svg-icon type="mdi" :path="mdiMagnify"></svg-icon>
         </template>
     </v-text-field>
+</v-row>
 </v-container>
 </template>

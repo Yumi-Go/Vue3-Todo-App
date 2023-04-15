@@ -15,45 +15,44 @@ const { deleteTask } = useDelete();
 </script>
 
 <template>
-<v-container fluid class="px-5 py-0">
-        <v-list bg-color="pink" class="w-full h-[500px] m-0 text-white">
-            <v-list-item v-if="getAllTasks.length < 1" class="p-5 font-bold">
-                <div class="flex flex-col justify-center items-center h-[500px]">
-                    <div>
-                        <v-icon :icon="mdiAlertCircleOutline" color="#E0E0E0" size="100" class="opacity-50"/>
-                    </div>
-                    <div>
-                        <span class="text-[#E0E0E0] opacity-80">Task Does Not Exist</span>
-                    </div>
+<v-container fluid class="px-2 py-0 flex justify-center items-center">
+    <v-list bg-color="pink" class="w-full h-[500px] m-0 p-0 text-white">
+        <v-list-item v-if="getAllTasks.length < 1" class="p-5 font-bold">
+            <div class="flex flex-col justify-center items-center h-[500px]">
+                <div>
+                    <v-icon :icon="mdiAlertCircleOutline" color="#E0E0E0" size="100" class="opacity-50"/>
                 </div>
-            </v-list-item>
-            <v-list-item v-else class="font-bold">
-                <v-icon :icon="mdiCheckboxMarkedCirclePlusOutline" color="#FFF9C4"/>
-                <span class="text-[#FFF9C4] pl-2">Your Tasks</span>
-            </v-list-item>
-            <v-list-item
-            v-for="task in filteredTasks()"
-            class="hover:bg-red-300 hover:text-black group"
-            >
-                <v-list-item-action>
-                    <v-checkbox v-model="task.completed">
-                        <template #label v-if="task.completed">
-                            <span class="line-through font-bold"> {{ task.name }}</span>
-                        </template>
-                        <template #label v-else>
-                            <span class="font-bold">{{ task.name }}</span>
-                        </template>
-                    </v-checkbox>
-                    <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="unBookmarkTask(task.id)"/>
-                    <v-icon v-else :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)"/>
-                    <v-icon
-                    class="invisible group-hover:visible"
-                    :icon="mdiTrashCanOutline"
-                    @click="deleteTask(getAllTasks.indexOf(task))"/>
-                </v-list-item-action>
-                <v-divider thickness="3px"></v-divider>
-            </v-list-item>
-        </v-list>
+                <div>
+                    <span class="text-[#E0E0E0] opacity-80">Task Does Not Exist</span>
+                </div>
+            </div>
+        </v-list-item>
+        <v-list-item v-else class="font-bold">
+            <v-icon :icon="mdiCheckboxMarkedCirclePlusOutline" color="#FFF9C4"/>
+            <span class="text-[#FFF9C4] pl-2">Your Tasks</span>
+        </v-list-item>
+        <v-list-item
+        v-for="task in filteredTasks()"
+        class="hover:bg-red-300 hover:text-black group">
+            <v-list-item-action>
+                <v-checkbox v-model="task.completed">
+                    <template #label v-if="task.completed">
+                        <span class="line-through font-bold"> {{ task.name }}</span>
+                    </template>
+                    <template #label v-else>
+                        <span class="font-bold">{{ task.name }}</span>
+                    </template>
+                </v-checkbox>
+                <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="unBookmarkTask(task.id)"/>
+                <v-icon v-else :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)"/>
+                <v-icon
+                class="invisible group-hover:visible"
+                :icon="mdiTrashCanOutline"
+                @click="deleteTask(getAllTasks.indexOf(task))"/>
+            </v-list-item-action>
+            <v-divider thickness="3px"></v-divider>
+        </v-list-item>
+    </v-list>
     </v-container>
 
 </template>

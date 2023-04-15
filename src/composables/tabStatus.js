@@ -14,7 +14,7 @@ export function useTabStatus() {
         storeTabStatus.value.bookmarkedTab = isBookmarked.value;
     }
 
-// Why this is not working??????????????
+// Question: Why this is not working??????????????
 
     // function tabToggle() {
     //     console.log("tabToggle triggered")
