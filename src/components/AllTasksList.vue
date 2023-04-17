@@ -12,18 +12,13 @@ import { useDelete } from '../composables/delete'
 const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
 const { getTabStatus } = useTabStatus();
 
-// const taskIndex = ref(null);
 
 const { filteredTasks } = useSearch(getAllTasks.value);
-const { getBookmarkedTasks, bookmarkTask } = useBookmark();
+const { bookmarkTask } = useBookmark();
 const { unBookmarkTask } = useUnBookmark();
 
 const { deleteTask } = useDelete();
 
-// function setTaskIndex(index) {
-//     taskIndex.value = index;
-//     console.log(index);
-// }
 
 
 </script>
@@ -56,9 +51,9 @@ const { deleteTask } = useDelete();
                         </span>
                     </template>
                 </v-checkbox>
-                {{ getAllTasks.indexOf(task) }}
-                <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="unBookmarkTask(task.id)"/>
-                <v-icon v-else :icon="mdiBookmarkOutline" @click="bookmarkTask(task.id)"/>
+                {{ index }}
+                <v-icon v-if="task.bookmarked" :icon="mdiBookmark" @click="bookmarkTask(index)"/>
+                <v-icon v-else :icon="mdiBookmarkOutline" @click="unBookmarkTask(index)"/>
                 <v-icon
                 class="invisible group-hover:visible"
                 :icon="mdiTrashCanOutline"
