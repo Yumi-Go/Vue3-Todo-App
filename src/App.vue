@@ -1,40 +1,23 @@
 <script setup>
 import Header from '../src/components/Header.vue'
 import Search from './components/Search.vue';
-import List from './components/List.vue';
+import AllTasksList from './components/AllTasksList.vue';
+import BookmarkedList from './components/BookmarkedList.vue';
 import Input from './components/Input.vue';
 import { useTabStatus } from "./composables/tabStatus";
 
-const { isAllTasks, isBookmarked, getTabStatus, saveTabStatus } = useTabStatus();
-
-function initializeTabStatus() {
-  if (window.location.href.match('/bookmarked')) {
-    isAllTasks.value = false;
-    isBookmarked.value = true;
-  } else {
-    isAllTasks.value = true;
-    isBookmarked.value = false;
-  }
-  saveTabStatus();
-}
-
-initializeTabStatus();
+const { getTabStatus } = useTabStatus();
 
 </script>
 
 <template>
 <div id="outerWrapper" class="flex justify-center items-center w-full h-full">
-  <div class="flex flex-col mt-10 w-[600px] bg-red-200">
+  <div class="flex flex-col mt-10 w-[600px] h-[750px] bg-red-200">
     <Header/>
     <Search/>
-    <List/>
-    <Input/>
+    <AllTasksList v-if="getTabStatus.allTab"/>
+    <BookmarkedList v-else/>
+    <Input v-if="getTabStatus.allTab"/>
   </div>
-
 </div>
 </template>
-
-
-
-
-

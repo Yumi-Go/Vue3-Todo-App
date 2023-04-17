@@ -1,14 +1,14 @@
 import { ref } from "vue";
 import { useLocalStorage, StorageSerializers } from '@vueuse/core';
 
+const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
+
 const search = ref('');
 
-export function useSearch() {
+export function useSearch(objects) {
     
-    const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
-
     function filteredTasks() {
-        return getAllTasks.value.filter(obj => 
+        return Object.values(objects).filter(obj => 
         obj.name.toLowerCase().includes(search.value.toLowerCase()));
         // Question: includes() vs match().. which one is better?
     }

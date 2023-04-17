@@ -3,47 +3,19 @@ import { ref } from "vue"
 import { useLocalStorage, StorageSerializers } from '@vueuse/core'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiAlertCircleOutline, mdiCheckboxMarkedCirclePlusOutline, mdiBookmarkOutline, mdiBookmark, mdiPlus, mdiTrashCanOutline, mdiMagnify } from '@mdi/js'
-import { useBookmark } from '../composables/bookmark'
-import { useDelete } from '../composables/delete'
+import { useAdd } from "../composables/add"
 
-const newTask = ref('');
-const search = ref('');
+// const newTask = ref('');
 
 const storeAllTasks = useLocalStorage('all', []);
 const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
 
-function counter() {
-    let result = 1;
-    if (getAllTasks.value.length > 0) {
-        result = getAllTasks.value[getAllTasks.value.length - 1].id + 1;
-    }
-    return result;
-}
-
-function addTask() {
-    if (newTask.value.trim().length > 0) {
-        storeAllTasks.value.push({
-            id: counter(),
-            name: newTask.value,
-            bookmarked: false,
-            completed: false,
-        });
-    }
-    newTask.value = '';
-}
-
-const { bookmarkTask, unBookmarkTask } = useBookmark();
-const { deleteTask } = useDelete();
-
-function filteredTasks() {
-  let input = search.value.toLowerCase();
-	return getAllTasks.value.filter(obj => obj.name.toLowerCase().match(input));
-}
+const { newTask, addTask } = useAdd();
 
 </script>
 
 <template>
-<v-container fluid class="px-5">
+<v-container fluid class="px-5 flex-1 p-0 m-0">
     <v-row>
         <v-text-field
         v-model="newTask"

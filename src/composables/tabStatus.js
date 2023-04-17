@@ -2,12 +2,12 @@ import { ref } from "vue";
 import { useLocalStorage, StorageSerializers } from '@vueuse/core';
 
 
-export function useTabStatus() {
+const isAllTasks = ref(true);  
+const isBookmarked = ref(false);
+const storeTabStatus = useLocalStorage('tab', { allTab: isAllTasks.value, bookmarkedTab: isBookmarked.value });
+const getTabStatus = useLocalStorage("tab", null, { serializer: StorageSerializers.object });
 
-    const isAllTasks = ref(true);  
-    const isBookmarked = ref(false);
-    const storeTabStatus = useLocalStorage('tab', { allTab: isAllTasks.value, bookmarkedTab: isBookmarked.value });
-    const getTabStatus = useLocalStorage("tab", null, { serializer: StorageSerializers.object });
+export function useTabStatus() {
 
     function saveTabStatus() {
         storeTabStatus.value.allTab = isAllTasks.value;
