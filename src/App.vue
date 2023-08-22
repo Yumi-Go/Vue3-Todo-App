@@ -1,85 +1,23 @@
 <script setup>
-import { ref } from "vue";
-import { useLocalStorage, StorageSerializers } from '@vueuse/core';
+import Header from '../src/components/Header.vue'
+import Search from './components/Search.vue';
+import AllTasksList from './components/AllTasksList.vue';
+import BookmarkedList from './components/BookmarkedList.vue';
+import Input from './components/Input.vue';
+import { useTabStatus } from "./composables/useTabStatus";
 
-const isAllTasks = ref(true);
-const isBookmarked = ref(false);
-
-const storeTabStatus = useLocalStorage('tab', { allTab: isAllTasks.value, bookmarkedTab: isBookmarked.value });
-const getTabStatus = useLocalStorage("tab", null, { serializer: StorageSerializers.object });
-
-function saveTabStatus() {
-  storeTabStatus.value.allTab = isAllTasks.value;
-  storeTabStatus.value.bookmarkedTab = isBookmarked.value;
-}
-
-function initializeTabStatus() {
-  if (window.location.href.match('/bookmarked')) {
-    isAllTasks.value = false;
-    isBookmarked.value = true;
-  } else {
-    isAllTasks.value = true;
-    isBookmarked.value = false;
-  }
-  saveTabStatus();
-}
-
-initializeTabStatus();
-
-function buttonToggle() {
-  isAllTasks.value = !isAllTasks.value;
-  isBookmarked.value = !isBookmarked.value;
-  saveTabStatus();
-}
+const { tabStatus } = useTabStatus();
 
 </script>
 
 <template>
-<div id="outerWrapper" class="flex flex-col justify-center items-center w-full h-full">
-  <div class="flex flex-col mt-10 w-[600px]">
-    <div class="flex justify-between flex-row w-full bg-red-200 px-5 pt-5 pb-2">
-      <div class="w-[109px] h-[39px] text-red-700 text-left text-[32px] font-[700] leading-[39px] tracking-normal" >TO-DO</div>
-      <div class="flex flex-row">
-        <router-link :to="{ name: 'Home' }">
-          <div
-          class="flex justify-center items-center p-0 w-[118px] h-10 border-[1px] border-solid border-[#757575] rounded-l-full"
-          :class="{ btn_clicked: getTabStatus.allTab }"
-          @click="buttonToggle">
-            <input type="radio" id="btn_allTasks" name="tabBtn" v-model="isAllTasks" class="hidden"/>
-            <label for="btn_allTasks" class="text-center cursor-pointer">All Tasks</label>
-          </div>
-        </router-link>
-        <router-link :to="{ name: 'Bookmarked' }">
-          <div
-          class="flex justify-center items-center p-0 w-[118px] h-10 border-[1px] border-solid border-[#757575] !border-l-0 rounded-r-full"
-          :class="{ btn_clicked: getTabStatus.bookmarkedTab }"
-          @click="buttonToggle">
-            <input type="radio" id="btn_bookmarked" name="tabBtn" v-model="isBookmarked" class="hidden"/>
-            <label for="btn_bookmarked" class="text-center cursor-pointer">Bookmarked</label>
-          </div>
-        </router-link>
-      </div>
-    </div>
-    <div class="w-full bg-red-200">
-      <router-view />
-    </div>
+<div id="outerWrapper" class="flex justify-center items-center w-full h-full">
+  <div class="flex flex-col mt-10 w-[600px] h-[750px] bg-red-200">
+    <Header/>
+    <Search/>
+    <AllTasksList v-if="tabStatus.allTab"/>
+    <BookmarkedList v-else/>
+    <Input v-if="tabStatus.allTab"/>
   </div>
 </div>
 </template>
-
-
-
-<style>
-
-.btn_clicked {
-  font-weight: bold;
-  background: #FFF3E0;
-  color: rgb(185 28 28);
-}
-
-</style>
-
-
-
-
-

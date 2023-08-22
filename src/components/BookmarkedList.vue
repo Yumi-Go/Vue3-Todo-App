@@ -1,24 +1,22 @@
 <script setup>
 import { useLocalStorage, StorageSerializers } from '@vueuse/core';
 import { mdiAlertCircleOutline, mdiBookmarkMultiple, mdiCheckBold, mdiBookmark, mdiBookmarkOutline, mdiTrashCanOutline } from '@mdi/js'
-import { useBookmark } from '../composables/bookmark'
-import { useDelete } from '../composables/delete'
+import { useTabStatus } from "../composables/useTabStatus";
+import { useSearch } from "../composables/useSearch"
+import { useBookmark } from '../composables/useBookmark'
+import { useDelete } from '../composables/useDelete'
 
-const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
-
-function getBookmarkedTasks() {
-    return getAllTasks.value.filter((obj) => obj.bookmarked);
-}
-
-const { unBookmarkTask } = useBookmark();
+const allTasks = useLocalStorage("all", []);
+const { getBookmarkedTasks, unBookmarkTask } = useBookmark();
+const { filteredTasks } = useSearch(getBookmarkedTasks);
 const { deleteTask } = useDelete();
 
 </script>
 
 <template>
-<v-container fluid class="px-5 h-[660px]">
+<v-container fluid class="flex flex-col flex-1 px-5">
     <v-row>
-        <v-list bg-color="pink" class="w-full h-[640px] m-0 text-white">
+        <v-list bg-color="pink" class="w-full flex-1 m-0 text-white">
             <v-list-item v-if="getBookmarkedTasks().length < 1" class="font-bold">
                 <div class="flex flex-col justify-center items-center h-[500px]">
                     <div>
@@ -34,7 +32,7 @@ const { deleteTask } = useDelete();
                 <span class="text-[#FFF9C4] pl-2">Your Bookmarked Tasks</span>
             </v-list-item>
             <v-list-item
-            v-for="task in getBookmarkedTasks()"
+            v-for="task in filteredTasks()"
             class="hover:bg-red-300 hover:text-black font-bold pl-5 group">
             <div class="flex justify-between">
                 <div>
@@ -46,7 +44,7 @@ const { deleteTask } = useDelete();
                     <v-icon
                     class="invisible group-hover:visible"
                     :icon="mdiTrashCanOutline"
-                    @click="deleteTask(getAllTasks.indexOf(task))"
+                    @click="deleteTask(allTasks.indexOf(task))"
                     />
                 </div>
             </div>
@@ -55,4 +53,4 @@ const { deleteTask } = useDelete();
         </v-list>
     </v-row>
 </v-container>
-</template>
+</template>../composables/useBookmark

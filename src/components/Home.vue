@@ -1,28 +1,28 @@
+<!-- This Home.vue file should be removed later -->
+
 <script setup>
 import { ref } from "vue"
 import { useLocalStorage, StorageSerializers } from '@vueuse/core'
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiAlertCircleOutline, mdiCheckboxMarkedCirclePlusOutline, mdiBookmarkOutline, mdiBookmark, mdiPlus, mdiTrashCanOutline, mdiMagnify } from '@mdi/js'
-import { useBookmark } from '../composables/bookmark'
-import { useDelete } from '../composables/delete'
+import { useBookmark } from '../composables/useBookmark'
+import { useDelete } from '../composables/useDelete'
 
 const newTask = ref('');
 const search = ref('');
-
-const storeAllTasks = useLocalStorage('all', []);
-const getAllTasks = useLocalStorage("all", null, { serializer: StorageSerializers.object });
+const allTasks = useLocalStorage("all", []);
 
 function counter() {
     let result = 1;
-    if (getAllTasks.value.length > 0) {
-        result = getAllTasks.value[getAllTasks.value.length - 1].id + 1;
+    if (allTasks.value.length > 0) {
+        result = allTasks.value[allTasks.value.length - 1].id + 1;
     }
     return result;
 }
 
 function addTask() {
     if (newTask.value.trim().length > 0) {
-        storeAllTasks.value.push({
+        allTasks.value.push({
             id: counter(),
             name: newTask.value,
             bookmarked: false,
@@ -37,7 +37,7 @@ const { deleteTask } = useDelete();
 
 function filteredTasks() {
   let input = search.value.toLowerCase();
-	return getAllTasks.value.filter(obj => obj.name.toLowerCase().match(input));
+	return allTasks.value.filter(obj => obj.name.toLowerCase().match(input));
 }
 
 </script>
@@ -63,7 +63,7 @@ function filteredTasks() {
 
     <v-row>
         <v-list bg-color="pink" class="w-full h-[500px] m-0 text-white">
-            <v-list-item v-if="getAllTasks.length < 1" class="p-5 font-bold">
+            <v-list-item v-if="allTasks.length < 1" class="p-5 font-bold">
                 <div class="flex flex-col justify-center items-center h-[500px]">
                     <div>
                         <v-icon :icon="mdiAlertCircleOutline" color="#E0E0E0" size="100" class="opacity-50"/>
@@ -95,7 +95,7 @@ function filteredTasks() {
                     <v-icon
                     class="invisible group-hover:visible"
                     :icon="mdiTrashCanOutline"
-                    @click="deleteTask(getAllTasks.indexOf(task))"/>
+                    @click="deleteTask(allTasks.indexOf(task))"/>
                 </v-list-item-action>
                 <v-divider thickness="3px"></v-divider>
             </v-list-item>
