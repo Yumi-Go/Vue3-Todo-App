@@ -28,4 +28,4 @@ const { newTask, addTask } = useAdd();
             </v-text-field>
         </v-row>
     </v-container>
-</template>../composables/useAdd
+</template>
