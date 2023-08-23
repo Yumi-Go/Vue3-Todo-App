@@ -1,7 +1,6 @@
 <script setup>
 import { useLocalStorage } from '@vueuse/core';
 import { mdiAlertCircleOutline, mdiBookmarkMultiple, mdiCheckBold, mdiBookmark, mdiBookmarkOutline, mdiTrashCanOutline } from '@mdi/js'
-import { useTabStatus } from "../composables/useTabStatus";
 import { useSearch } from "../composables/useSearch"
 import { useBookmark } from '../composables/useBookmark'
 import { useDelete } from '../composables/useDelete'

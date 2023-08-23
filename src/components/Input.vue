@@ -1,11 +1,9 @@
 <script setup>
 import { ref } from "vue"
-import { useLocalStorage, StorageSerializers } from '@vueuse/core'
 import SvgIcon from '@jamescoyle/vue-icon'
-import { mdiAlertCircleOutline, mdiCheckboxMarkedCirclePlusOutline, mdiBookmarkOutline, mdiBookmark, mdiPlus, mdiTrashCanOutline, mdiMagnify } from '@mdi/js'
+import { mdiPlus } from '@mdi/js'
 import { useAdd } from "../composables/useAdd"
 
-const allTasks = useLocalStorage('all', []);
 const { newTask, addTask } = useAdd();
 
 </script>
