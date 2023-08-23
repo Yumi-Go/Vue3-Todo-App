@@ -15,9 +15,7 @@ const { deleteTask } = useDelete();
 
 <template>
 <v-container fluid class="flex flex-col flex-1 px-5">
-<v-container fluid class="flex flex-col flex-1 px-5">
     <v-row>
-        <v-list bg-color="pink" class="w-full flex-1 m-0 text-white">
         <v-list bg-color="pink" class="w-full flex-1 m-0 text-white">
             <v-list-item v-if="getBookmarkedTasks().length < 1" class="font-bold">
                 <div class="flex flex-col justify-center items-center h-[500px]">
@@ -34,7 +32,6 @@ const { deleteTask } = useDelete();
                 <span class="text-[#FFF9C4] pl-2">Your Bookmarked Tasks</span>
             </v-list-item>
             <v-list-item
-            v-for="task in filteredTasks()"
             v-for="task in filteredTasks()"
             class="hover:bg-red-300 hover:text-black font-bold pl-5 group">
             <div class="flex justify-between">
