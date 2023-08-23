@@ -1,7 +1,6 @@
 import { ref } from "vue";
 import { useLocalStorage } from '@vueuse/core';
 
-
 const isAllTasks = ref(true);  
 const isBookmarked = ref(false);
 const tabStatus = useLocalStorage('tab', { allTab: isAllTasks.value, bookmarkedTab: isBookmarked.value });
@@ -17,8 +16,9 @@ export function useTabStatus() {
         isAllTasks.value = true;
         isBookmarked.value = false;
         saveTabStatus();
-      }
-      function bookmarkedButtonToggle() {
+    }
+
+    function bookmarkedButtonToggle() {
         isAllTasks.value = false;
         isBookmarked.value = true;
         saveTabStatus();

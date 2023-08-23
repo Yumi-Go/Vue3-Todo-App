@@ -63,16 +63,15 @@ const { deleteTask } = useDelete();
                         </span>
                     </template>
                 </v-checkbox>
-                {{ index }}
                 <v-icon
                     v-if="task.bookmarked"
                     :icon="mdiBookmark"
-                    @click="bookmarkTask(index)"
+                    @click="unBookmarkTask(index)"
                 />
                 <v-icon
                     v-else
                     :icon="mdiBookmarkOutline"
-                    @click="unBookmarkTask(index)"
+                    @click="bookmarkTask(index)"
                 />
                 <v-icon
                     class="invisible group-hover:visible"

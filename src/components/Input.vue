@@ -23,7 +23,11 @@ const { newTask, addTask } = useAdd();
                 @keypress.enter="addTask()"
             >
                 <template #append-inner>
-                    <svg-icon type="mdi" :path="mdiPlus" @click.prevent="addTask()"/>
+                    <svg-icon
+                        type="mdi"
+                        :path="mdiPlus"
+                        @click.prevent="addTask()"
+                    />
                 </template>
             </v-text-field>
         </v-row>

@@ -6,7 +6,7 @@ const { isAllTasks, isBookmarked, tabStatus, allTasksButtonToggle, bookmarkedBut
 
 <template>
     <div class="flex justify-between flex-row w-full px-5 pt-5 pb-2">
-      <div class="w-[109px] h-[39px] text-red-700 text-left text-[32px] font-[700] leading-[39px] tracking-normal" >
+      <div class="w-[109px] h-[39px] text-red-700 text-left text-[32px] font-[700] leading-[39px] tracking-normal">
         TO-DO
       </div>
       <div class="flex flex-row">
@@ -15,8 +15,17 @@ const { isAllTasks, isBookmarked, tabStatus, allTasksButtonToggle, bookmarkedBut
           :class="{ btn_clicked: tabStatus.allTab }"
           @click="allTasksButtonToggle"
         >
-          <input type="radio" id="btn_allTasks" name="tabBtn" v-model="isAllTasks" class="hidden"/>
-          <label for="btn_allTasks" class="text-center cursor-pointer">
+          <input
+            type="radio"
+            id="btn_allTasks"
+            name="tabBtn"
+            v-model="isAllTasks"
+            class="hidden"
+          />
+          <label
+            for="btn_allTasks"
+            class="text-center cursor-pointer"
+          >
             All Tasks
           </label>
         </div>
@@ -25,8 +34,17 @@ const { isAllTasks, isBookmarked, tabStatus, allTasksButtonToggle, bookmarkedBut
           :class="{ btn_clicked: tabStatus.bookmarkedTab }"
           @click="bookmarkedButtonToggle"
         >
-          <input type="radio" id="btn_bookmarked" name="tabBtn" v-model="isBookmarked" class="hidden"/>
-          <label for="btn_bookmarked" class="text-center cursor-pointer">
+          <input
+            type="radio"
+            id="btn_bookmarked"
+            name="tabBtn"
+            v-model="isBookmarked"
+            class="hidden"
+          />
+          <label
+            for="btn_bookmarked"
+            class="text-center cursor-pointer"
+          >
             Bookmarked
           </label>
         </div>

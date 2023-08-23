@@ -8,7 +8,7 @@ import { useDelete } from '../composables/useDelete'
 
 const allTasks = useLocalStorage("all", []);
 const { getBookmarkedTasks, unBookmarkTask } = useBookmark();
-const { filteredTasks } = useSearch(getBookmarkedTasks);
+const { filteredTasks } = useSearch();
 const { deleteTask } = useDelete();
 
 </script>
@@ -53,7 +53,7 @@ const { deleteTask } = useDelete();
                     </span>
                 </v-list-item>
                 <v-list-item
-                    v-for="task in filteredTasks()"
+                    v-for="(task, index) in filteredTasks(getBookmarkedTasks())"
                     class="hover:bg-red-300 hover:text-black font-bold pl-5 group"
                 >
                     <div class="flex justify-between">
@@ -68,12 +68,12 @@ const { deleteTask } = useDelete();
                             <v-icon
                                 v-if="task.bookmarked"
                                 :icon="mdiBookmark"
-                                @click="unBookmarkTask(task.id)"
+                                @click="unBookmarkTask(index)"
                             />
                             <v-icon
                                 class="invisible group-hover:visible"
                                 :icon="mdiTrashCanOutline"
-                                @click="deleteTask(allTasks.indexOf(task))"
+                                @click="deleteTask(index)"
                             />
                         </div>
                     </div>

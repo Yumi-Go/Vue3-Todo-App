@@ -9,11 +9,13 @@ export function useBookmark() {
     }
 
     function bookmarkTask(index) {
-        Object.values(allTasks.value)[index].bookmarked = true;
+        console.log("bookmark index: ", index);
+        allTasks.value[index].bookmarked = true;
     }
 
     function unBookmarkTask(index) {
-        Object.values(allTasks.value)[index].bookmarked = false;
+        console.log("unbookmark index: ", index);
+        allTasks.value[index].bookmarked = false;
     }
     
     return { getBookmarkedTasks, bookmarkTask, unBookmarkTask }
