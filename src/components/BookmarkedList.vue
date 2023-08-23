@@ -57,7 +57,6 @@ const { filteredTasks } = useSearch();
                                 class="mr-2"
                             />
                             {{ task.name }}
-                            {{ index }}
                         </div>
                         <div>
                             <v-icon
