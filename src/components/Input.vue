@@ -1,11 +1,9 @@
 <script setup>
-import { ref } from "vue"
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiPlus } from '@mdi/js'
 import { useAdd } from "../composables/useAdd"
 
 const { newTask, addTask } = useAdd();
-
 </script>
 
 <template>

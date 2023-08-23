@@ -24,6 +24,13 @@ export function useTabStatus() {
         saveTabStatus();
     }
 
-    return { isAllTasks, isBookmarked, tabStatus, saveTabStatus, allTasksButtonToggle, bookmarkedButtonToggle }
+    return {
+        isAllTasks,
+        isBookmarked,
+        tabStatus,
+        saveTabStatus,
+        allTasksButtonToggle,
+        bookmarkedButtonToggle
+    }
 
 }

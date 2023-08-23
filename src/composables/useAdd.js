@@ -5,7 +5,6 @@ const allTasks = useLocalStorage('all', []);
 const newTask = ref('');
 
 export function useAdd() {
-    
     function idCounter() {
         let result = 1;
         if (allTasks.value.length > 0) {

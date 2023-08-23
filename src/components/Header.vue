@@ -1,7 +1,12 @@
 <script setup>
 import { useTabStatus } from "../composables/useTabStatus";
-const { isAllTasks, isBookmarked, tabStatus, allTasksButtonToggle, bookmarkedButtonToggle } = useTabStatus();
-
+const {
+  isAllTasks,
+  isBookmarked,
+  tabStatus,
+  allTasksButtonToggle,
+  bookmarkedButtonToggle
+} = useTabStatus();
 </script>
 
 <template>

@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from "vue";
 import SvgIcon from '@jamescoyle/vue-icon'
 import { mdiMagnify } from '@mdi/js'
 import { useSearch } from "../composables/useSearch"

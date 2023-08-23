@@ -8,14 +8,20 @@ export function useBookmark() {
         return allTasks.value.filter(obj => obj.bookmarked);
     }
 
-    function bookmarkTask(index) {
-        console.log("bookmark index: ", index);
-        allTasks.value[index].bookmarked = true;
+    function bookmarkTask(taskId) {
+        allTasks.value.forEach(task => {
+            if (taskId === task.id) {
+                task.bookmarked = true;
+            }
+        });
     }
 
-    function unBookmarkTask(index) {
-        console.log("unbookmark index: ", index);
-        allTasks.value[index].bookmarked = false;
+    function unBookmarkTask(taskId) {
+        allTasks.value.forEach(task => {
+            if (taskId === task.id) {
+                task.bookmarked = false;
+            }
+        });
     }
     
     return { getBookmarkedTasks, bookmarkTask, unBookmarkTask }

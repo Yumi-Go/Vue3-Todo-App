@@ -1,15 +1,10 @@
 <script setup>
-import { useLocalStorage } from '@vueuse/core';
-import { mdiAlertCircleOutline, mdiBookmarkMultiple, mdiCheckBold, mdiBookmark, mdiBookmarkOutline, mdiTrashCanOutline } from '@mdi/js'
+import { mdiAlertCircleOutline, mdiBookmarkMultiple, mdiCheckBold, mdiBookmark } from '@mdi/js'
 import { useSearch } from "../composables/useSearch"
 import { useBookmark } from '../composables/useBookmark'
-import { useDelete } from '../composables/useDelete'
 
-const allTasks = useLocalStorage("all", []);
 const { getBookmarkedTasks, unBookmarkTask } = useBookmark();
 const { filteredTasks } = useSearch();
-const { deleteTask } = useDelete();
-
 </script>
 
 <template>
@@ -62,17 +57,13 @@ const { deleteTask } = useDelete();
                                 class="mr-2"
                             />
                             {{ task.name }}
+                            {{ index }}
                         </div>
                         <div>
                             <v-icon
                                 v-if="task.bookmarked"
                                 :icon="mdiBookmark"
-                                @click="unBookmarkTask(index)"
-                            />
-                            <v-icon
-                                class="invisible group-hover:visible"
-                                :icon="mdiTrashCanOutline"
-                                @click="deleteTask(index)"
+                                @click="unBookmarkTask(task.id)"
                             />
                         </div>
                     </div>

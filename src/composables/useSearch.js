@@ -1,7 +1,5 @@
 import { ref } from "vue";
-import { useLocalStorage } from '@vueuse/core';
 
-const allTasks = useLocalStorage("all", []);
 const search = ref('');
 
 export function useSearch() {
